@@ -6,13 +6,16 @@ Wukong CLI is a private, proprietary terminal companion for Wukong. This reposit
 
 ## Get started
 
-1. Install the CLI:
+> [!NOTE]
+> Requires Node.js 18+.
+
+1. Install Wukong CLI:
 
 ```bash
 npm install -g @wukong.today/wukong-cli
 ```
 
-2. Run Wukong:
+2. Run it in your terminal:
 
 ```bash
 wukong
@@ -27,7 +30,7 @@ wukong sync --pull
 
 ## Reporting bugs
 
-We welcome feedback. Please file a GitHub issue:
+We welcome feedback. File an issue on GitHub:
 
 https://github.com/mutnpc/wukong-cli/issues
 
@@ -38,3 +41,7 @@ Email: support@wukong.today
 ## Security
 
 Please report vulnerabilities privately: security@wukong.today
+
+## Data and privacy
+
+Wukong CLI only communicates with the Wukong cloud when you log in or sync. If you do not use those features, no cloud data is sent.
