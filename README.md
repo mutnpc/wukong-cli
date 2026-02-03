@@ -1,6 +1,8 @@
 # Wukong CLI
 
-Wukong CLI is the official terminal tool for Wukong.
+Official terminal tool for Wukong.
+
+Website: https://wukong.today
 
 ## Install
 
@@ -8,7 +10,7 @@ Wukong CLI is the official terminal tool for Wukong.
 npm install -g @wukong.today/wukong-cli
 ```
 
-## Get started
+## Usage
 
 ```bash
 wukong
