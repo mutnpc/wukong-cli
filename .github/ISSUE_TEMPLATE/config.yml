@@ -1,8 +1,14 @@
-blank_issues_enabled: true
+blank_issues_enabled: false
 contact_links:
-  - name: Security reports
+  - name: 📖 Documentation
+    url: https://docs.wukong.today
+    about: Check our documentation for guides and tutorials.
+  - name: 💬 Discord Community
+    url: https://discord.gg/wukong
+    about: Join our Discord for discussions and community support.
+  - name: 🔒 Security Reports
     url: mailto:security@wukong.today
-    about: Please report vulnerabilities privately.
-  - name: Support
+    about: Please report security vulnerabilities privately.
+  - name: 📧 Product Support
     url: mailto:support@wukong.today
-    about: Product support and account help.
+    about: For account and product support inquiries.

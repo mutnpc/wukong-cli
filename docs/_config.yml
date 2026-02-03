@@ -1,0 +1,25 @@
+title: Wukong CLI
+description: Official documentation for Wukong CLI - the terminal tool for Wukong
+remote_theme: pages-themes/cayman@v0.2.0
+plugins:
+  - jekyll-remote-theme
+
+# Navigation
+header_pages:
+  - index.md
+  - getting-started.md
+  - commands.md
+  - configuration.md
+
+# Footer links
+github_repo: mutnpc/wukong-cli
+
+# SEO
+url: https://docs.wukong.today
+baseurl: ""
+
+# Exclude files
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
