@@ -71,6 +71,7 @@ wukong loop "finish the API" --max-iterations 5 --every 1m
 wukong loop "review auth" --model fast --review-model strict
 wukong loop "finish validation" --review-model reviewer
 wukong loop "validate arguments" --dry-run
+wukong loop "finish auth" --done-when "login tests pass" --constraint "keep the public API"
 ```
 
 | Option | Description |
@@ -79,10 +80,21 @@ wukong loop "validate arguments" --dry-run
 | `--every <duration>` | Minimum delay between iterations, such as `1m` or `5m` |
 | `--model <alias>` | Writer model alias |
 | `--review-model <alias>` | Independent reviewer model alias |
-| `--dry-run` | Validate the plan without starting a Loop |
+| `--done-when <criterion>` | Optional user-owned completion criterion |
+| `--constraint <rule>` | Repeatable Must not constraint |
+| `--check <command>` | Repeatable explicit required project check |
+| `--accept-discovered-checks` | Include the exact checks proposed by dry-run |
+| `--only-explicit-checks` | Exclude discovered checks and record the exclusion |
+| `--trust-workspace <digest>` | Confirm the exact short-lived workspace challenge |
+| `--approve-gate-plan <digest>` | Confirm the exact frozen Gate approval set |
+| `--ack-finish-line-warnings <digest>` | Confirm the exact warning set |
+| `--dry-run` | Print the complete Finish Line proposal without creating trust, contract, or run state |
 | `--until <condition>` | Compatibility option; all values map to the unified proof gate |
 
-v0.0.18 freezes the goal and optional finish condition when the Loop starts.
+v0.0.19 confirms and freezes the Finish Line, required checks, workspace
+identity, trust, and Gate approval before the Loop starts. Trusted project
+checks run with the current OS permissions; the static guard is not a complete
+shell sandbox.
 Every review must account for earlier blockers. Repeated identical blockers
 trigger one fresh read-only strategy; if that still makes no progress, the Loop
 returns `NEEDS_WORK/no_progress`.
@@ -97,7 +109,7 @@ Loop results and exit codes:
 | Interrupted | `130` | The user or process interrupted the run |
 
 Legacy `verify-pass`, `scan-clean`, and `judge-pass` Goal inputs remain readable
-in v0.0.18 and map to the unified `proof-pass` gate.
+in v0.0.19 and map to the unified `proof-pass` gate.
 
 ### TUI `/loop`
 
@@ -105,7 +117,9 @@ in v0.0.18 and map to the unified `proof-pass` gate.
 /loop add input validation to the signup form
 /loop --review-model reviewer -- finish the current change
 /loop status
+/loop resume
 /loop stop
+/loop revise preserve the old API while completing the migration
 ```
 
 ### TUI `/resume`

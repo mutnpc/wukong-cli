@@ -10,6 +10,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.19] - 2026-07-25
+
+### Added
+- Add a TUI Finish Line that confirms Goal, optional Done when, Must not constraints, required project checks, warnings, and the per-run limit before creating a Loop.
+- Add headless `--done-when`, repeatable `--constraint` and `--check`, discovered-check decisions, exact Gate/workspace confirmations, and a zero-side-effect `--dry-run`.
+- Add local workspace trust-once and remembered grants with list and exact revoke controls.
+
+### Changed
+- Freeze project-check command, source locator, definition, order, policy, workspace, and approval digests for each Acceptance Contract.
+- Separate durable Gate attempts from terminal run results. Continue creates a new idempotent run; finish-line changes create a revised Goal and contract with lineage.
+- Keep Cross-Agent Resume text as an editable objective draft without granting imported commands or acceptance text execution authority.
+
+### Security
+- Reject known inline credentials and recognizable destructive or upload commands before persistence or process spawn.
+- Fail closed on check definition, policy, workspace, approval, evidence, or replay drift. A PASS terminal must reference one complete local PASS attempt.
+- State the remaining boundary clearly: trusted project checks run with the current OS permissions; 0.0.19 does not provide a complete shell sandbox.
+
+Wukong Code 0.0.19 remains free, local-first, and BYOK. Finish Line contracts,
+trust grants, exact commands, and evidence metadata stay on the user's machine
+and are not uploaded to Wukong Web. This release adds no hosted models,
+payments, quota, cloud sync, Verification Skill execution, PR Gate, Team
+features, or telemetry storage backend.
+
 ## [0.0.18] - 2026-07-22
 
 ### Added

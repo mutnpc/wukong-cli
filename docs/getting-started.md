@@ -78,6 +78,7 @@ Inside the TUI:
 Or run a headless Loop:
 
 ```bash
+wukong loop "add input validation to the signup form" --dry-run
 wukong loop "add input validation to the signup form"
 ```
 

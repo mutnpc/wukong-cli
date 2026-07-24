@@ -9,7 +9,7 @@ Give `/loop` a goal. Wukong works on the change, runs the repository's real
 checks, reviews the result from a fresh read-only context, and fixes blocking
 findings against the same goal.
 
-The current release is **[v0.0.18](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.18)**.
+The current release is **[v0.0.19](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.19)**.
 It is free and bring-your-own-key (BYOK).
 
 ## Why Wukong
@@ -17,6 +17,8 @@ It is free and bring-your-own-key (BYOK).
 - **A Loop that converges**: Wukong keeps the goal and finish condition fixed,
   remembers earlier blockers, and stops with a clear reason when another
   iteration would only repeat the same work.
+- **An explicit Finish Line**: review Goal, Done when, Must not constraints,
+  real project checks, and the run limit before Wukong creates the Loop.
 - **Resume unfinished work**: continue local Codex, Claude Code, Cursor, Kimi Code, or Grok
   sessions without modifying the source session or replaying its old tools.
 - **Clear outcomes**: every Loop ends as `PASS`, `NEEDS_WORK`, or `ERROR`, with
@@ -72,6 +74,7 @@ Or run the Loop directly:
 
 ```bash
 wukong loop "add input validation to the signup form"
+wukong loop "add input validation to the signup form" --dry-run
 ```
 
 Resume unfinished work from another coding agent:
@@ -87,13 +90,21 @@ Resume unfinished work from another coding agent:
 Wukong imports the selected session as read-only context. You choose whether to
 continue directly or turn it into an editable Loop goal.
 
-## The 0.0.18 Loop-first surface
+## The 0.0.19 explicit Finish Line
 
-The default TUI command list keeps Resume → Loop → Gate clear. Run
-`/help advanced` for diagnostics and configuration tools. Advanced and
-compatibility implementations remain callable; they are hidden rather than
-deleted. Removed or invalid slash commands stay local instead of becoming model
-prompts.
+Every new TUI Loop first shows a Finish Line with the Goal, optional Done when,
+Must not constraints, required project checks, warnings, and per-run iteration
+limit. Starting the Loop freezes those checks with their source and definition
+so an agent cannot silently weaken the Gate.
+
+Headless users can inspect the same proposal with `--dry-run`, then confirm the
+exact warning, Gate approval, and workspace trust digests. Continuing a terminal
+run creates a new traceable run under the unchanged contract; changing the
+finish line creates a revised Loop.
+
+Trusted project checks execute with the current operating-system permissions.
+Wukong blocks known inline secrets and recognizable destructive or upload
+commands before spawn, but does not claim a complete shell sandbox.
 
 ## The Loop
 
@@ -133,7 +144,7 @@ boundaries.
 | `wukong` | Launch the interactive TUI |
 | `wukong -p <prompt>` | Run one non-interactive prompt |
 | `wukong provider` | Configure model providers and models |
-| `wukong loop <goal>` | Run the write → check → review → fix workflow |
+| `wukong loop <goal>` | Review a Finish Line, then run write → check → review → fix |
 | `wukong login` | Sign in through Device Login for account features |
 | `wukong roles list` | List built-in and user-defined role profiles |
 | `wukong review init` | Create `.wukong/review-policy.md` |
@@ -158,7 +169,7 @@ safety controls. Anonymous metrics respect `WUKONG_TELEMETRY=0` and never gate
 execution.
 
 There is no public paid plan, Checkout, hosted report workflow, or managed model
-credit in v0.0.18.
+credit in v0.0.19.
 
 `/feedback` is login-free and sends only the exact text fields shown for
 confirmation. It never attaches logs, prompts, transcripts, source code, file
