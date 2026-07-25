@@ -59,6 +59,7 @@ import sys, zipfile, os
 out = sys.argv[1]
 with zipfile.ZipFile(out, 'w') as z:
     z.writestr('wukong', '#!/bin/sh\necho "wukong stub"\n')
+    z.writestr('wukong.exe', '@echo off\necho wukong stub\r\n')
 os.chmod(out, 0o644)
 PY
     exit 0
@@ -101,21 +102,12 @@ teardown() {
     [ -x "$CUSTOM_DIR/wukong" ]
 }
 
-@test "records anonymous install success and prepares the first-run marker" {
+@test "does not create an install identity or send install telemetry" {
     run ./install.sh
-    [ "$status" -eq 0 ]
-    grep -q "telemetry-logs.wukong.today/v1/event" "$TEST_DIR/curl.log"
-    [ -s "$HOME/.wukong/device_id" ]
-    [ -f "$HOME/.wukong/install_first_run_pending" ]
-    [[ "$output" != *"Anonymous install telemetry is enabled"* ]]
-}
-
-@test "WUKONG_TELEMETRY=0 disables install telemetry" {
-    WUKONG_TELEMETRY=0 run ./install.sh
     [ "$status" -eq 0 ]
     ! grep -q "telemetry-logs.wukong.today/v1/event" "$TEST_DIR/curl.log"
     [ ! -e "$HOME/.wukong/device_id" ]
-    [[ "$output" != *"Anonymous install telemetry is enabled"* ]]
+    [ ! -e "$HOME/.wukong/install_first_run_pending" ]
 }
 
 @test "fails on unsupported platform" {
@@ -159,4 +151,36 @@ EOF
     run ./install.sh
     [ "$status" -eq 0 ]
     [[ "$output" != *"Add the following to your shell profile"* ]]
+}
+
+@test "selects the published windows x64 asset name" {
+    cat > "$MOCK_BIN/uname" <<'EOF'
+#!/bin/sh
+case "$1" in
+    -s) echo "MINGW64_NT-10.0" ;;
+    -m) echo "x86_64" ;;
+esac
+EOF
+    chmod +x "$MOCK_BIN/uname"
+
+    run ./install.sh
+    [ "$status" -eq 0 ]
+    [[ "$output" == *"wukong-win32-x64.zip"* ]]
+    [ -x "$HOME/.wukong/bin/wukong.exe" ]
+}
+
+@test "selects the published windows arm64 asset name" {
+    cat > "$MOCK_BIN/uname" <<'EOF'
+#!/bin/sh
+case "$1" in
+    -s) echo "MSYS_NT-10.0" ;;
+    -m) echo "arm64" ;;
+esac
+EOF
+    chmod +x "$MOCK_BIN/uname"
+
+    run ./install.sh
+    [ "$status" -eq 0 ]
+    [[ "$output" == *"wukong-win32-arm64.zip"* ]]
+    [ -x "$HOME/.wukong/bin/wukong.exe" ]
 }

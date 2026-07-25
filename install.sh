@@ -5,57 +5,6 @@ REPO_OWNER="mutnpc"
 REPO_NAME="wukong-code"
 INSTALL_DIR="${WUKONG_INSTALL_DIR:-$HOME/.wukong/bin}"
 BINARY_NAME="wukong"
-TELEMETRY_ENDPOINT="https://telemetry-logs.wukong.today/v1/event"
-
-telemetry_disabled() {
-  case "${WUKONG_TELEMETRY:-1}" in
-    0|false|FALSE|no|NO|off|OFF) return 0 ;;
-  esac
-  case "${WUKONG_DISABLE_TELEMETRY:-0}" in
-    1|true|TRUE|yes|YES|on|ON) return 0 ;;
-  esac
-  return 1
-}
-
-random_hex() {
-  if command -v uuidgen >/dev/null 2>&1; then
-    uuidgen | tr -d '-' | tr '[:upper:]' '[:lower:]'
-    return
-  fi
-  if [ -r /dev/urandom ]; then
-    od -An -N16 -tx1 /dev/urandom | tr -d ' \n'
-    return
-  fi
-  printf '%s' "$$-$(date +%s)" | shasum -a 256 | awk '{print substr($1, 1, 32)}'
-}
-
-prepare_install_identity() {
-  WUKONG_HOME="${WUKONG_CODE_HOME:-$HOME/.wukong}"
-  DEVICE_ID_FILE="${WUKONG_HOME}/device_id"
-  FIRST_RUN_MARKER="${WUKONG_HOME}/install_first_run_pending"
-  if [ -s "$DEVICE_ID_FILE" ]; then
-    INSTALL_ID="$(sed -n '1p' "$DEVICE_ID_FILE" | tr -cd '0-9A-Fa-f-')"
-    if [ -n "$INSTALL_ID" ]; then
-      return
-    fi
-  fi
-  INSTALL_ID="$(random_hex)"
-  (
-    umask 077
-    mkdir -p "$WUKONG_HOME"
-    printf '%s\n' "$INSTALL_ID" > "$DEVICE_ID_FILE"
-    : > "$FIRST_RUN_MARKER"
-  )
-}
-
-record_install_success() {
-  if telemetry_disabled; then return; fi
-  EVENT_ID="$(random_hex)"
-  EVENT_TIME="$(date +%s)"
-  SAFE_VERSION="$(printf '%s' "$VERSION" | tr -cd '0-9A-Za-z._-')"
-  PAYLOAD="$(printf '%s' "{\"user_id\":\"kfc_device_id_${INSTALL_ID}\",\"events\":[{\"event_id\":\"${EVENT_ID}\",\"device_id\":\"${INSTALL_ID}\",\"session_id\":null,\"event\":\"kfc_install_success\",\"timestamp\":${EVENT_TIME},\"context_app_name\":\"wukong-code-installer\",\"context_version\":\"${SAFE_VERSION}\",\"context_platform\":\"${PLATFORM}\",\"context_arch\":\"${ARCH}\",\"context_ui_mode\":\"installer\"}]}" )"
-  curl -fsS --max-time 2 -H 'Content-Type: application/json' -d "$PAYLOAD" "$TELEMETRY_ENDPOINT" >/dev/null 2>&1 || true
-}
 
 # Determine platform and architecture
 PLATFORM="$(uname -s | tr '[:upper:]' '[:lower:]')"
@@ -91,7 +40,7 @@ case "$ARCH" in
 esac
 
 if [ "$PLATFORM" = "win" ]; then
-  TARGET="win-${ARCH}"
+  TARGET="win32-${ARCH}"
   BINARY_NAME="wukong.exe"
 else
   TARGET="${PLATFORM}-${ARCH}"
@@ -169,11 +118,6 @@ STAGED_BINARY=""
 
 echo ""
 echo "Wukong Code installed to: ${INSTALL_DIR}/${BINARY_NAME}"
-
-if ! telemetry_disabled; then
-  prepare_install_identity
-  record_install_success
-fi
 
 # POSIX-compatible PATH check
 case ":${PATH}:" in

@@ -175,8 +175,9 @@ credit in v0.0.19.
 confirmation. It never attaches logs, prompts, transcripts, source code, file
 paths, or local evidence.
 
-Anonymous product events are limited to installation, first run, Device Login,
-and Loop lifecycle state. They never include source code, prompts, transcripts,
+The installer does not create a device identity or send install telemetry.
+Optional CLI product events are limited to first run, Device Login, and Loop
+lifecycle state. They never include source code, prompts, transcripts,
 repository names, or file paths. Set `WUKONG_TELEMETRY=0` to opt out.
 
 ## Documentation
