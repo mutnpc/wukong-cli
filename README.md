@@ -9,7 +9,7 @@ Give `/loop` a goal. Wukong works on the change, runs the repository's real
 checks, reviews the result from a fresh read-only context, and fixes blocking
 findings against the same goal.
 
-The current release is **[v0.0.19](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.19)**.
+The current release is **[v0.0.20](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.20)**.
 It is free and bring-your-own-key (BYOK).
 
 ## Why Wukong
@@ -90,17 +90,25 @@ Resume unfinished work from another coding agent:
 Wukong imports the selected session as read-only context. You choose whether to
 continue directly or turn it into an editable Loop goal.
 
-## The 0.0.19 explicit Finish Line
+## The 0.0.20 reusable Verification Criteria
 
 Every new TUI Loop first shows a Finish Line with the Goal, optional Done when,
 Must not constraints, required project checks, warnings, and per-run iteration
 limit. Starting the Loop freezes those checks with their source and definition
 so an agent cannot silently weaken the Gate.
 
+Wukong can now discover strict qualitative verification criteria from existing
+local Skills. Suggestions are never selected automatically: you inspect the
+source, full provenance digest, criteria, review inputs, provider destination,
+and reviewer cost before choosing an ordered set. The four bundled reference
+recipes cover API compatibility, migration safety, log security, and frontend
+design.
+
 Headless users can inspect the same proposal with `--dry-run`, then confirm the
-exact warning, Gate approval, and workspace trust digests. Continuing a terminal
-run creates a new traceable run under the unchanged contract; changing the
-finish line creates a revised Loop.
+exact selection, Gate approval, local broker trust, and BYOK provider
+destination. A single isolated fresh reviewer receives only attempt-scoped
+broker tools; it cannot run Skill commands, arbitrary shell commands, MCP, or
+web requests.
 
 Trusted project checks execute with the current operating-system permissions.
 Wukong blocks known inline secrets and recognizable destructive or upload
@@ -169,7 +177,7 @@ safety controls. Anonymous metrics respect `WUKONG_TELEMETRY=0` and never gate
 execution.
 
 There is no public paid plan, Checkout, hosted report workflow, or managed model
-credit in v0.0.19.
+credit in v0.0.20.
 
 `/feedback` is login-free and sends only the exact text fields shown for
 confirmation. It never attaches logs, prompts, transcripts, source code, file

@@ -7,7 +7,7 @@ permalink: /commands/
 
 # Command Reference
 
-This reference describes the public v0.0.18 binary.
+This reference describes the public v0.0.20 binary.
 
 {: .highlight }
 Run `wukong --help` or `wukong <command> --help` against your installed version
@@ -91,10 +91,13 @@ wukong loop "finish auth" --done-when "login tests pass" --constraint "keep the 
 | `--dry-run` | Print the complete Finish Line proposal without creating trust, contract, or run state |
 | `--until <condition>` | Compatibility option; all values map to the unified proof gate |
 
-v0.0.19 confirms and freezes the Finish Line, required checks, workspace
-identity, trust, and Gate approval before the Loop starts. Trusted project
-checks run with the current OS permissions; the static guard is not a complete
-shell sandbox.
+v0.0.20 confirms and freezes the Finish Line, required checks, workspace
+identity, trust, Gate approval, selected verification criteria, broker scope,
+and exact BYOK review destination before the Loop starts. Suggested criteria
+remain unselected until the user confirms their full provenance digests and
+order. Trusted project checks run with the current OS permissions; Skill
+criteria do not execute commands, and the static guard is not a complete shell
+sandbox.
 Every review must account for earlier blockers. Repeated identical blockers
 trigger one fresh read-only strategy; if that still makes no progress, the Loop
 returns `NEEDS_WORK/no_progress`.
@@ -109,7 +112,7 @@ Loop results and exit codes:
 | Interrupted | `130` | The user or process interrupted the run |
 
 Legacy `verify-pass`, `scan-clean`, and `judge-pass` Goal inputs remain readable
-in v0.0.19 and map to the unified `proof-pass` gate.
+in v0.0.20 and map to the unified `proof-pass` gate.
 
 ### TUI `/loop`
 

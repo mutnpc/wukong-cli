@@ -10,6 +10,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.20] - 2026-07-25
+
+### Added
+- Discover strict `verification/criteria.v1.json` sidecars from existing personal, project, monorepo package, explicitly trusted local, and read-only built-in Skill sources.
+- Add deterministic, explicitly selected, provenance-digested verification criteria with flat ordered multi-selection and no silent same-name first-wins behavior.
+- Add four optional read-only reference recipes for API compatibility, migration safety, log security, and frontend design.
+- Add a zero-side-effect headless dry-run that reports the catalog and selection digests, criteria, review-subject policy, exclusions, provider destination, and estimated reviewer cost.
+
+### Changed
+- Give every new V2/V3 review attempt one isolated fresh reviewer with attempt-scoped evidence broker tools instead of arbitrary workspace, shell, Skill, MCP, or web access.
+- Require separate local workspace broker trust and a per-run confirmation of the exact BYOK provider endpoint and allowed input origins.
+- Join Gate attempt, checks, scan, subject manifest, reviewer verdict, proof aggregate, evidence snapshot, completion, terminal, and continuation records with durable exact IDs and digests.
+- Package Intel macOS with Node 24 legacy SEA and postject to avoid the upstream Node 26 x64 macOS SEA crash; other targets continue to use Node 26 `--build-sea`.
+
+### Security
+- Fail closed on selected Skill, input manifest, evidence, provider, policy, workspace, or review-subject drift.
+- Keep catalogs, selections, trust grants, contracts, manifests, and Gate records local. Only bounded, secret-filtered content admitted by the broker is sent to the exact BYOK provider confirmed for that run.
+- Keep Skill Markdown, hooks, commands, tools, MCP, and network declarations outside the executable Gate contract.
+
+Wukong Code 0.0.20 remains free, local-first, and BYOK. It adds no Skill
+authoring or command-recipe runtime, complete process sandbox, hosted models,
+payments, quotas, PR Gate, Team policy, cloud sync, or telemetry metrics
+backend.
+
 ## [0.0.19] - 2026-07-25
 
 ### Added
