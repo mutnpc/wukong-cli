@@ -11,6 +11,10 @@ Software updates and TUI announcements are separate channels. An announcement
 never installs software, and the update channel does not depend on an
 announcement.
 
+This page documents the published `v0.0.22` channels. The runtime contains
+install-source detection for additional layouts; detection alone does not make
+an official distribution channel available.
+
 ## Explicit upgrade
 
 Run either command to fetch the latest public version directly:
@@ -28,8 +32,8 @@ Current install-source behavior:
 
 | Install source | Explicit upgrade behavior |
 |---|---|
-| Global npm, pnpm, yarn, or bun | Run the matching package-manager update |
-| Homebrew | Run the supported Homebrew upgrade path |
+| Global npm, pnpm, yarn, or bun | Run the matching update only when the installed version came from a corresponding published package |
+| Homebrew | Runtime support can recognize an existing formula, but no official public Wukong formula currently exists; do not present this as an install or upgrade channel |
 | Native macOS or Linux binary | Download the platform ZIP and SHA-256, verify it, then atomically replace the binary |
 | Native Windows binary | Open or print the current download path when in-place replacement is unavailable |
 | Unknown source | Print a safe manual path instead of guessing |
@@ -46,8 +50,9 @@ not prevent the TUI from starting.
 
 - Global npm, pnpm, yarn, and bun installations can install updates in the
   background. This is enabled by default.
-- Native and Homebrew startup checks report an available release but do not
-  replace the installation in the background.
+- Native startup checks report an available release but do not replace the
+  installation in the background. The same detection behavior can apply to an
+  existing Homebrew layout, but Wukong currently publishes no official formula.
 - A successful background installation is reported on the next interactive
   startup with a changelog link.
 - Passive startup checks may respect staged rollout metadata. Explicit

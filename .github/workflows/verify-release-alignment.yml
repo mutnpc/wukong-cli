@@ -1,55 +1,47 @@
 name: Verify Release Version Alignment
 
 on:
+  pull_request:
+    paths:
+      - 'CHANGELOG.md'
+      - 'README.md'
+      - 'docs/**'
+      - 'scripts/validate-release-truth.mjs'
+      - '.github/workflows/verify-release-alignment.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'CHANGELOG.md'
+      - 'README.md'
+      - 'docs/**'
+      - 'scripts/validate-release-truth.mjs'
+      - '.github/workflows/verify-release-alignment.yml'
   release:
     types: [published]
   workflow_dispatch:
     inputs:
       release_tag:
-        description: 'Release tag to verify (e.g. v0.0.8)'
-        required: true
+        description: 'Optional release tag to verify, for example v0.0.22'
+        required: false
 
 permissions:
   contents: read
 
 jobs:
   verify-version-alignment:
-    name: Verify release tag matches the public changelog
+    name: Block drift before release publication
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
-      - name: Resolve release tag
-        id: resolve-tag
+      - name: Verify changelog, README, and public docs agree
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name || github.event.inputs.release_tag }}
+        shell: bash
         run: |
-          TAG="${{ github.event.release.tag_name || github.event.inputs.release_tag }}"
-          # Strip leading 'v' if present for semver comparison
-          NORMALIZED="${TAG#v}"
-          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-          echo "normalized=$NORMALIZED" >> "$GITHUB_OUTPUT"
-
-      - name: Resolve public release version
-        id: resolve-public-version
-        run: |
-          VERSION=$(grep -m1 -E '^## \[[0-9]+\.[0-9]+\.[0-9]+\]' CHANGELOG.md | sed -E 's/^## \[([^]]+)\].*/\1/')
-          if [ -z "$VERSION" ]; then
-            echo "error: could not extract the latest public version from CHANGELOG.md"
-            exit 1
+          set -euo pipefail
+          if [[ -n "$RELEASE_TAG" ]]; then
+            node scripts/validate-release-truth.mjs "${RELEASE_TAG#v}"
+          else
+            node scripts/validate-release-truth.mjs
           fi
-          echo "public_version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "wukong-code changelog version: $VERSION"
-          echo "wukong-code release tag: ${{ steps.resolve-tag.outputs.tag }}"
-
-      - name: Verify versions match
-        run: |
-          RELEASE_VERSION="${{ steps.resolve-tag.outputs.normalized }}"
-          PUBLIC_VERSION="${{ steps.resolve-public-version.outputs.public_version }}"
-          if [ "$RELEASE_VERSION" != "$PUBLIC_VERSION" ]; then
-            echo "error: version mismatch"
-            echo "  wukong-code release tag: v$RELEASE_VERSION"
-            echo "  wukong-code changelog version: $PUBLIC_VERSION"
-            echo ""
-            echo "Fix: publish the matching CHANGELOG.md entry before creating the release."
-            exit 1
-          fi
-          echo "Versions aligned: $PUBLIC_VERSION"

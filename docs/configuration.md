@@ -96,8 +96,8 @@ cannot expand hard safety boundaries.
 
 ## Resume suggestions
 
-The TUI may suggest one unfinished Codex, Claude Code, or Cursor session for the
-current workspace. Disable automatic foreign-session suggestions in
+The TUI may suggest one unfinished Codex, Claude Code, Cursor, Kimi Code, or
+Grok session for the current workspace. Disable automatic foreign-session suggestions in
 `~/.wukong/tui.toml`:
 
 ```toml
@@ -106,7 +106,8 @@ foreign_suggestions = false
 ```
 
 This stops the welcome screen from scanning those directories. Explicit
-`/resume codex`, `/resume claude`, and `/resume cursor` commands still work.
+`/resume codex`, `/resume claude`, `/resume cursor`, `/resume kimi`, and
+`/resume grok` commands still work.
 
 ## Automatic update preference
 
@@ -145,16 +146,19 @@ Example with an isolated data directory:
 WUKONG_CODE_HOME=/tmp/wukong-test wukong doctor
 ```
 
-Device Login and account APIs use `wukong.today` by default. There is no
-separate `auth.wukong.today` host and no hosted report upload workflow in
-v0.0.18.
+Device Login and account APIs use `wukong.today` by default. In the development
+checkout, the same OAuth host receives the logout revocation request before
+local account cleanup. There is no separate `auth.wukong.today` host and no
+hosted report upload workflow in v0.0.22.
 
 ## Anonymous product events
 
-The installer and CLI record only installation, first-run, Device Login, and
-Loop lifecycle events with basic version/platform fields. They exclude source
-code, diffs, prompts, objectives, transcripts, repository names, file paths,
-provider keys, and provider endpoints.
+The installer does not create an installation identity and does not send
+telemetry. After installation, the CLI may send optional, bounded product
+events for first run, Device Login, Resume, and Loop lifecycle with basic
+version/platform fields. It excludes source code, diffs, prompts, objectives,
+transcripts, repository names, file paths, provider keys, and provider
+endpoints.
 
 Disable anonymous product events with:
 

@@ -7,8 +7,13 @@ permalink: /getting-started/
 
 # Getting Started
 
-Wukong Code v0.0.18 is a terminal AI coding agent centered on one workflow:
+Wukong Code v0.0.22 is a terminal AI coding agent centered on one workflow:
 **Goal → Write → Check → Review → Fix**.
+
+{: .highlight }
+Install and release facts on this page refer to published `v0.0.22`. Sections
+marked **development preview** describe the unreleased source checkout and do
+not mean that `0.1.0-rc.1` is available.
 
 ## Requirements
 
@@ -35,8 +40,37 @@ verifies its SHA-256 file.
 ### Windows
 
 Download the matching Windows x64 or ARM64 ZIP from the
-[release page](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.18),
-extract `wukong.exe`, and add it to your `PATH`.
+[release page](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.22),
+along with its adjacent `.sha256` file. In PowerShell, verify and extract it:
+
+```powershell
+$expected = (Get-Content .\wukong-win32-x64.zip.sha256).Split()[0]
+$actual = (Get-FileHash .\wukong-win32-x64.zip -Algorithm SHA256).Hash.ToLower()
+if ($actual -ne $expected) { throw "SHA-256 mismatch" }
+Expand-Archive .\wukong-win32-x64.zip -DestinationPath .\wukong
+.\wukong\wukong.exe --version
+```
+
+Use the `win32-arm64` filenames on Windows ARM64. Move `wukong.exe` to a
+permanent directory, add that directory to your user `PATH`, open a new
+terminal, and run `wukong --version`.
+
+### Manual macOS or Linux ZIP
+
+Download both the matching ZIP and `.sha256` file, then run:
+
+```bash
+shasum -a 256 -c wukong-darwin-arm64.zip.sha256
+unzip wukong-darwin-arm64.zip
+chmod +x wukong
+./wukong --version
+```
+
+Replace the target name for Intel macOS or Linux. The v0.0.22 macOS assets
+have published SHA-256 files but were not Developer ID notarized; macOS may
+show a Gatekeeper warning. Do not bypass it unless the checksum matches and
+you trust the linked GitHub Release. The release workflow for subsequent
+public versions fails closed unless Developer ID signing and notarization pass.
 
 ### Upgrade
 
@@ -79,8 +113,65 @@ Or run a headless Loop:
 
 ```bash
 wukong loop "add input validation to the signup form" --dry-run
-wukong loop "add input validation to the signup form"
+# Review “Headless start flags”, then rerun the same command with those flags.
 ```
+
+The dry-run lists the exact check decision, Gate approval, workspace trust (if
+checks execute), short-lived broker challenge, and run-scoped provider consent
+required by the current workspace. A bare headless command fails closed when
+those decisions are missing; it never silently accepts them for you.
+
+### A normal prompt is not a Loop verdict (development preview)
+
+```bash
+wukong -p "summarize this repository"
+```
+
+The current development checkout prints a Run preflight, writer-iteration and
+running-tool activity, and a final `run.summary` in addition to model prose.
+`Outcome COMPLETED` or exit `0` means only that the prompt turn ended normally;
+it is not `PASS`. The summary says whether checks or durable Loop evidence were
+recorded, shows workspace attribution when it can be proved, and gives a Next
+action. If it reports `provider_outcome_unknown`, the resume command is omitted:
+reconcile the request ID/idempotency key with provider logs or billing before
+starting another request.
+
+## What you should see (development preview)
+
+The primary user flow is **input → execution → evidence → disposition**:
+
+1. **Input:** one Preflight summary shows the exact Goal, optional Done when and
+   Must not rules, selected project checks and review criteria, Writer/Reviewer,
+   sanitized provider origin, pre-existing Git paths, permission mode, outbound
+   scope and payload limits, approval order, result handling, and iteration
+   limit. It explicitly says that no separate provider-call or token cap is
+   currently enforced. Headless dry-run prints the same runtime facts and exact
+   start flags. Local read, provider transmission, permission, and project-check
+   execution remain separate security approvals. Cancelling creates no run;
+   starting anyway with no executable checks does not make `PASS` possible.
+2. **Execution:** watch writer iteration, elapsed time, the active tool/activity,
+   and any permission, provider, or check blocker. TUI `WRITE`/`CHECK`/`REVIEW`
+   labels are activity hints; headless currently reports writer iterations and
+   running tools, and an internal reviewer is not always exposed as a distinct
+   `REVIEW` phase. A model saying “done” is not completion.
+3. **Evidence:** the final decision is based on the current workspace, real
+   check results, bounded risk findings, and a fresh read-only review. Earlier
+   session claims are context only. Usage, cost, provider-call count, reviewer
+   usage, and file attribution remain `unavailable` or `unknown` unless durable
+   records can prove them.
+4. **Disposition:** act on the single terminal result below. Do not interpret
+   raw agent prose as the release decision.
+
+| Result | Meaning | Next action |
+|---|---|---|
+| `PASS` | Current workspace checks and review passed the frozen Gate | Inspect the diff and non-blocking findings in `/loop status` or review feedback, then commit or deliver it through your normal workflow |
+| `NEEDS_WORK` | A concrete blocker, limit, permission need, or no-progress condition remains | Read the primary blocker; continue/revise the Loop or handle the required external action |
+| `ERROR` | Wukong could not produce a trustworthy Gate result | Fix the provider, tool, check, or state error. With `provider_outcome_unknown`, reconcile provider logs/billing first and never retry blindly |
+| `PAUSED` | TUI Ctrl-C or `/loop pause` parked the same contract without a Gate verdict | Inspect retained changes and use `/loop resume` when safe |
+| `STOPPED_BY_USER` | `/loop stop` or a headless interruption stopped work without a Gate verdict | Inspect retained changes. `/loop stop` discards the contract; headless resume is offered only when the provider outcome is known |
+
+An Auto permission guard inside an active Loop is
+`NEEDS_WORK/permission_required`, not `PAUSED` or `STOPPED_BY_USER`.
 
 The Loop:
 
@@ -88,13 +179,31 @@ The Loop:
 2. Runs the checks available in the repository.
 3. Reviews the change from a fresh read-only context.
 4. Fixes blocking findings against the same goal.
-5. Returns `PASS`, `NEEDS_WORK`, or `ERROR`.
+5. Returns the Gate verdict `PASS`, `NEEDS_WORK`, or `ERROR`.
 
-v0.0.18 remembers earlier blockers. If the same blocker survives repeated
+TUI Ctrl-C or `/loop pause` parks the Goal as `PAUSED` so the same contract can
+be resumed. `/loop stop` reports `STOPPED_BY_USER`, deliberately discards that
+Loop contract, and leaves workspace changes for explicit keep/revert. A
+headless interruption also reports `STOPPED_BY_USER`; it must not offer blind
+resume when the provider request outcome is unknown.
+
+v0.0.22 remembers earlier blockers. If the same blocker survives repeated
 reviews, Wukong tries one fresh read-only strategy and then stops with
 `NEEDS_WORK/no_progress` if the work is still not moving forward.
 
-Loop exit codes are `PASS=0`, `NEEDS_WORK=1`, `ERROR=2`, and interruption `=130`.
+Only the final durable `loop.result` maps `PASS=0`, `NEEDS_WORK=1`, and
+`ERROR=2` to Gate verdicts. Headless SIGINT exits `130` as a lifecycle result.
+A successful `loop.finish_line.dry_run` also exits `0` and is not `PASS`;
+validation, preflight, and unrelated command exits do not use the verdict table.
+
+Resume a Wukong session from the shell with the canonical option:
+
+```bash
+wukong -r
+wukong --resume <session-id>
+```
+
+`-S, --session` remains accepted only for compatibility with older scripts.
 
 ## Resume unfinished work
 
@@ -172,10 +281,12 @@ Headless prompt mode defaults to guarded Auto. Dangerous headless execution
 requires both flags:
 
 ```bash
-wukong -p "finish the current change" --yolo --yes
+wukong -p "<task>" --yolo --yes
 ```
 
-`--yes` by itself does not enable YOLO.
+This is syntax only; do not paste it unchanged into a workspace with uncommitted
+work. A YOLO prompt may modify files and run commands. `--yes` by itself does
+not enable YOLO.
 
 ## Local BYOK execution
 
@@ -186,7 +297,14 @@ available to prevent runaway API-key use.
 
 ```bash
 wukong login
+wukong logout
 ```
+
+**Development preview:** logout first attempts remote refresh-token revocation
+and then cleans local account credentials. A network, rate-limit, or server
+failure is reported as remote state `unknown`, not as confirmed revocation;
+local cleanup still proceeds when possible. It does not remove BYOK provider
+configuration, and repeating it is safe.
 
 ## Advanced diagnostics
 

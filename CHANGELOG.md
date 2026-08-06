@@ -10,6 +10,52 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Add one consolidated Loop Preflight summary for Goal, Done when, Must not rules, exact project checks, review criteria, Writer/Reviewer, sanitized provider origin, pre-existing Git changes, permission mode, outbound limits, approval order, terminal handling, and iteration limit.
+- Add deterministic ordinary-prompt summaries that separate model completion from a durable Loop Gate verdict.
+- Add `wukong logout` and TUI `/logout`: attempt remote refresh-token revocation, always clean local account credentials when possible, and report remote revocation as unknown instead of falsely confirmed on network or server failure.
+
+### Changed
+- Keep TUI Ctrl-C and `/loop pause` as resumable `PAUSED`; reserve `STOPPED_BY_USER` for `/loop stop` or a headless interruption before a Gate verdict.
+- Refuse blind resume or retry when a provider request outcome cannot be proven; surface the request ID and idempotency key for reconciliation.
+- Keep workspace changes after every terminal result and direct the user to inspect `git status --short` and `git diff`; Wukong does not automatically commit, push, or publish.
+
+### Fixed
+- Make `wukong judge` block with `Verification: not run` when no executable verification command was discovered or supplied; a risk scan alone cannot produce a passing delivery decision.
+- Make release staging, metadata, checksum, signing, and notarization checks fail closed before a future public native release is published.
+
+These entries describe the unreleased source checkout. They are not evidence
+that `0.1.0-rc.1`, a new binary, or the corresponding Web security changes have
+been published.
+
+## [0.0.22] - 2026-07-31
+
+### Added
+- Add a source-level provider catalog snapshot path covering common providers, including GLM and Kimi, as the intended final provider-setup fallback.
+- Honor `--skills-dir` in interactive terminal sessions as well as headless runs.
+
+### Changed
+- Make `-r, --resume [id]` the canonical visible session option while retaining `-S, --session` as hidden compatibility.
+- Clarify guarded Auto, YOLO, Plan, headless `--yes`, added workspace access, and the deterministic scope of `judge` in CLI help.
+- Fall back from the maintained catalog to models.dev when the primary request fails.
+
+### Known limitation
+- The official v0.0.22 native archives were built with the local SEA profile and omit the intended embedded snapshot. They require one of the two remote catalogs for provider discovery. The corrected release workflow applies to the next public version; the existing assets are not rewritten.
+
+Wukong Code 0.0.22 remains free, local-first, and BYOK. It adds no hosted
+inference, payment, quota, PR publishing, Team product, or telemetry metrics
+backend.
+
+## [0.0.21] - 2026-07-30
+
+### Fixed
+- Preserve distinct occurrences of the same built-in risk across files, lines, and evidence locations.
+- Give each occurrence a stable identity derived from the complete finding while keeping exact duplicate input deterministic and deduplicated.
+- Keep deterministic Gate failures ahead of reviewer output.
+
+Wukong Code 0.0.21 did not ship isolated worktrees, Safe Promote, a target
+Final Gate, or platform-specific FFI. It remained free, local-first, and BYOK.
+
 ## [0.0.20] - 2026-07-25
 
 ### Added

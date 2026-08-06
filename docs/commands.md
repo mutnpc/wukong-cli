@@ -7,7 +7,10 @@ permalink: /commands/
 
 # Command Reference
 
-This reference describes the public v0.0.20 binary.
+This reference describes the public v0.0.22 binary.
+
+Sections marked **development preview** describe unreleased stabilization in
+this source checkout. They are not evidence that `0.1.0-rc.1` has shipped.
 
 {: .highlight }
 Run `wukong --help` or `wukong <command> --help` against your installed version
@@ -19,7 +22,7 @@ when exact options matter.
 |---|---|
 | `-h, --help` | Show help |
 | `-V, --version` | Show the installed version |
-| `-S, --session [id]` | Resume a session by ID or choose one interactively |
+| `-r, --resume [id]` | Resume a session by ID or choose one interactively |
 | `-c, --continue` | Continue the previous session for the current workspace |
 | `-p, --prompt <prompt>` | Run one prompt non-interactively |
 | `-m, --model <model>` | Select a configured model alias |
@@ -34,11 +37,13 @@ For dangerous headless prompt execution, `--yolo` also requires the hidden
 confirmation flag `--yes`:
 
 ```bash
-wukong -p "finish the current change" --yolo --yes
+wukong -p "<task>" --yolo --yes
 ```
 
-`--yes` by itself does not enable YOLO. The legacy `--auto-approve` option is
-accepted for one compatibility window, maps to YOLO, and prints a warning.
+The example shows syntax only; do not paste it unchanged into a workspace with
+uncommitted work. A YOLO prompt may modify files and run commands. `--yes` by
+itself does not enable YOLO. The legacy `--auto-approve` option is accepted for
+one compatibility window, maps to YOLO, and prints a warning.
 
 ## Primary workflow
 
@@ -52,7 +57,7 @@ wukong
 
 ### `wukong -p <prompt>`
 
-Run one prompt and print the response.
+Run one prompt without creating a verified Loop verdict.
 
 ```bash
 wukong -p "explain the project structure"
@@ -61,18 +66,29 @@ wukong -p "explain the project structure"
 Headless prompt mode defaults to guarded Auto. Use `--output-format
 stream-json` for machine-readable event output.
 
+**Development preview:** the current checkout prints a Run preflight,
+writer-iteration and running-tool activity, and a final `run.summary` in
+addition to model prose. `Outcome COMPLETED` or exit `0` is not Loop `PASS`.
+The summary reports checks/evidence, workspace attribution when provable, and
+Next. A `provider_outcome_unknown` summary omits resume; reconcile its request
+ID/idempotency key with provider logs or billing and never retry blindly.
+
 ### `wukong loop <goal>`
 
 Run the write → check → review → fix workflow without opening the TUI.
 
 ```bash
-wukong loop "fix the failing tests"
-wukong loop "finish the API" --max-iterations 5 --every 1m
-wukong loop "review auth" --model fast --review-model strict
-wukong loop "finish validation" --review-model reviewer
-wukong loop "validate arguments" --dry-run
-wukong loop "finish auth" --done-when "login tests pass" --constraint "keep the public API"
+wukong loop "fix the failing tests" --dry-run
+wukong loop "finish the API" --max-iterations 5 --every 1m --dry-run
+wukong loop "review auth" --model fast --review-model strict --dry-run
+wukong loop "finish validation" --review-model reviewer --dry-run
+wukong loop "finish auth" --done-when "login tests pass" --constraint "keep the public API" --dry-run
 ```
+
+These examples produce a proposal only. Review it, then add every required
+Headless start flag printed by that dry-run to the same command. A bare
+headless command does not accept checks, trust, Gate approval, or provider
+transmission on the user's behalf.
 
 | Option | Description |
 |---|---|
@@ -85,34 +101,62 @@ wukong loop "finish auth" --done-when "login tests pass" --constraint "keep the 
 | `--check <command>` | Repeatable explicit required project check |
 | `--accept-discovered-checks` | Include the exact checks proposed by dry-run |
 | `--only-explicit-checks` | Exclude discovered checks and record the exclusion |
-| `--trust-workspace <digest>` | Confirm the exact short-lived workspace challenge |
+| `--trust-workspace <challenge>` | Confirm the exact short-lived workspace challenge |
 | `--approve-gate-plan <digest>` | Confirm the exact frozen Gate approval set |
 | `--ack-finish-line-warnings <digest>` | Confirm the exact warning set |
+| `--verification-catalog-digest <digest>` | Bind an explicit Verification Skill selection to the dry-run catalog |
+| `--verification-skill <identity@digest>` | Select one exact criterion source; repeat to set its flat order |
+| `--trust-review-subject <challenge>` | Confirm the short-lived local broker read scope |
+| `--ack-review-subject <digest>` | Consent to the exact run-scoped files/evidence and BYOK provider destination |
 | `--dry-run` | Print the complete Finish Line proposal without creating trust, contract, or run state |
 | `--until <condition>` | Compatibility option; all values map to the unified proof gate |
 
-v0.0.20 confirms and freezes the Finish Line, required checks, workspace
+The current Loop confirms and freezes the Finish Line, required checks, workspace
 identity, trust, Gate approval, selected verification criteria, broker scope,
-and exact BYOK review destination before the Loop starts. Suggested criteria
-remain unselected until the user confirms their full provenance digests and
-order. Trusted project checks run with the current OS permissions; Skill
-criteria do not execute commands, and the static guard is not a complete shell
-sandbox.
+and exact BYOK review destination before the Loop starts. The development TUI
+first renders one summary containing those facts plus Writer/Reviewer,
+pre-existing Git paths, permission, outbound limits, approval order, result
+handling, iteration limit, and an explicit warning that provider-call/token
+caps are not separately enforced. Suggested criteria remain unselected until
+the user confirms their full provenance digests and order. Trusted project
+checks run with the current OS permissions; Skill criteria do not execute
+commands, and the static guard is not a complete shell sandbox.
+
+For a real headless run, review `wukong loop <goal> --dry-run` and add its exact
+**Headless start flags** to the same command. The required set is
+workspace-specific and may include discovered-check choice, warning
+acknowledgement, Gate approval, project trust, a short-lived broker challenge,
+and run-scoped provider consent.
+
+The TUI may present Finish Line, workspace trust, provider consent, and
+permission as separate confirmations. Cancelling preflight creates no run.
+Starting anyway with no executable checks does not permit `PASS`.
+
 Every review must account for earlier blockers. Repeated identical blockers
 trigger one fresh read-only strategy; if that still makes no progress, the Loop
 returns `NEEDS_WORK/no_progress`.
 
-Loop results and exit codes:
+**Development preview result contract:** Loop results and exit codes for a
+final durable `loop.result`:
 
 | Result | Exit code | Meaning |
 |---|---:|---|
 | `PASS` | `0` | The fixed target passed checks and review |
 | `NEEDS_WORK` | `1` | A blocker, permission requirement, limit, or no-progress stop remains |
 | `ERROR` | `2` | The Loop could not produce a trustworthy result |
-| Interrupted | `130` | The user or process interrupted the run |
+| `STOPPED_BY_USER` | `130` for a headless process interruption | Lifecycle result, not a Gate verdict; TUI `/loop stop` does not set a shell exit code |
+
+TUI Ctrl-C or `/loop pause` is resumable `PAUSED`, not `STOPPED_BY_USER`.
+`--dry-run` can exit `0` with `loop.finish_line.dry_run` and is not `PASS`;
+validation, preflight, and unrelated command exits do not use this verdict
+table. After `PASS`, inspect the diff and non-blocking findings via
+`/loop status` or review feedback. On `ERROR`, if
+`provider_outcome_unknown` is present, reconcile provider logs/billing before
+any retry and do not resume blindly.
 
 Legacy `verify-pass`, `scan-clean`, and `judge-pass` Goal inputs remain readable
-in v0.0.20 and map to the unified `proof-pass` gate.
+and map to the unified `proof-pass` gate. Hidden `-S, --session` remains accepted
+for compatibility; new usage should use `-r, --resume`.
 
 ### TUI `/loop`
 
@@ -124,6 +168,10 @@ in v0.0.20 and map to the unified `proof-pass` gate.
 /loop stop
 /loop revise preserve the old API while completing the migration
 ```
+
+Ctrl-C or `/loop pause` keeps the Loop resumable. `/loop stop` reports
+`STOPPED_BY_USER`, discards the current Loop contract, and leaves workspace
+changes on disk for you to inspect, keep, or revert.
 
 ### TUI `/resume`
 
@@ -172,6 +220,23 @@ The browser flow uses `https://wukong.today/auth/device`, where the user confirm
 with Google or GitHub. Login does not replace the model provider API key used for
 inference. The authenticated Wukong model catalog currently returns no hosted
 models, and an empty catalog is a successful account connection.
+
+### `wukong logout` (development preview)
+
+Disconnect the optional Wukong account without changing the active BYOK model
+provider:
+
+```bash
+wukong logout
+```
+
+The TUI equivalent is `/logout`. Logout first attempts to revoke the stored
+refresh token at the configured OAuth host and then always attempts local token
+and managed-account cleanup. Only a confirmed response is reported as remotely
+revoked. Network, rate-limit, or server failures leave remote state `unknown`
+and warn that the server session may remain active; local cleanup still
+continues when possible. Repeating logout with no token is idempotent. A local
+cleanup failure is an error rather than a false success.
 
 ### TUI `/feedback`
 
@@ -295,6 +360,10 @@ wukong judge --strict
 wukong judge --json
 ```
 
+If no executable verification command is discovered or supplied, `judge`
+returns `block`, prints `Verification: not run`, and exits `1`. A passing risk
+scan by itself is not delivery verification.
+
 ### `wukong guard`
 
 Inspect or run the best-effort command risk guard.
@@ -321,10 +390,13 @@ wukong upgrade
 wukong update
 ```
 
-Supported package managers, Homebrew, and native macOS/Linux installations can
-complete an explicit upgrade automatically. Native upgrades verify the release
-SHA-256 before atomically replacing the binary. Native Windows and unknown
-installation sources fall back to the download page.
+Native macOS/Linux installations can complete an explicit upgrade and verify
+the release SHA-256 before atomically replacing the binary. The runtime can
+recognize Homebrew install layouts, but there is currently no public Wukong
+Homebrew formula to promise as an installation channel. Package-manager paths
+apply only when that installed version came from a corresponding published
+package. Native Windows and unknown installation sources fall back to the
+download page.
 
 See [Updates and announcements](/updates-and-announcements/).
 

@@ -12,7 +12,13 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Validate installer shell syntax
+        run: sh -n install.sh
+
+      - name: Validate current release truth
+        run: node scripts/validate-release-truth.mjs
 
       - name: Install bats
         run: sudo apt-get update && sudo apt-get install -y bats
