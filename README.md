@@ -14,6 +14,13 @@ documentation checkout may also stage unreleased `0.1.0` stabilization notes;
 those notes do not mean that `0.1.0-rc.1` has shipped. Check `wukong --version`
 when an exact installed behavior matters.
 
+Version 0.1.0 is scoped to one controllable, recoverable, explainable local
+Loop. RC still requires enforceable provider-call/token limits, a trustworthy
+no-check decision, pre-existing-versus-Wukong file attribution, complete
+terminal usage/next actions, and upgrade/recovery proof. Full multi-layer
+coverage schema replacement, direct-shell content/PATH attestation, and a
+provider pricing database are deferred.
+
 ## Why Wukong
 
 - **Loop until ready** — keep one goal and Finish Line fixed while Wukong

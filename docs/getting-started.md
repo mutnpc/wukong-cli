@@ -15,6 +15,12 @@ Install and release facts on this page refer to published `v0.0.22`. Sections
 marked **development preview** describe the unreleased source checkout and do
 not mean that `0.1.0-rc.1` is available.
 
+Version 0.1.0 is scoped to one controllable, recoverable, explainable local
+Loop. Before RC, the development path must add enforceable call/token limits,
+trustworthy no-check handling, file attribution, complete terminal usage/next
+actions, and upgrade/recovery proof. Full multi-layer coverage schemas and
+direct-shell content/PATH attestation are deferred.
+
 ## Requirements
 
 - macOS, Linux, or Windows
@@ -147,6 +153,9 @@ The primary user flow is **input → execution → evidence → disposition**:
    limit. It explicitly says that no separate provider-call or token cap is
    currently enforced. Headless dry-run prints the same runtime facts and exact
    start flags. Local read, provider transmission, permission, and project-check
+   execution remain separate approvals. A generic warning acknowledgement is
+   not yet the final versioned no-check decision; both that decision and real
+   call/token enforcement remain RC work.
    execution remain separate security approvals. Cancelling creates no run;
    starting anyway with no executable checks does not make `PASS` possible.
 2. **Execution:** watch writer iteration, elapsed time, the active tool/activity,

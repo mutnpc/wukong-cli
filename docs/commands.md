@@ -12,6 +12,12 @@ This reference describes the public v0.0.22 binary.
 Sections marked **development preview** describe unreleased stabilization in
 this source checkout. They are not evidence that `0.1.0-rc.1` has shipped.
 
+The 0.1.0 target keeps this command surface narrow and stabilizes one local
+Loop. Provider-call/token limits, trustworthy no-check handling, file
+attribution, terminal usage, and recovery must close before RC; full internal
+coverage-schema replacement and direct-shell content/PATH attestation are not
+user-facing release blockers.
+
 {: .highlight }
 Run `wukong --help` or `wukong <command> --help` against your installed version
 when exact options matter.
@@ -119,6 +125,9 @@ pre-existing Git paths, permission, outbound limits, approval order, result
 handling, iteration limit, and an explicit warning that provider-call/token
 caps are not separately enforced. Suggested criteria remain unselected until
 the user confirms their full provenance digests and order. Trusted project
+checks and generic Finish Line warnings do not yet implement the final
+versioned no-check decision; 0.1.0 RC must add that distinction and enforce the
+displayed provider-call/token limits.
 checks run with the current OS permissions; Skill criteria do not execute
 commands, and the static guard is not a complete shell sandbox.
 

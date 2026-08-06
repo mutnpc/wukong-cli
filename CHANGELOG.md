@@ -28,6 +28,12 @@ These entries describe the unreleased source checkout. They are not evidence
 that `0.1.0-rc.1`, a new binary, or the corresponding Web security changes have
 been published.
 
+The 0.1.0 RC scope is intentionally narrower than the full internal research
+backlog: enforceable call/token limits, no-check policy, file attribution,
+terminal usage/next actions, compatibility recovery, and minimum Gate
+completeness/freshness remain required. Full multi-layer coverage-schema
+replacement and direct-shell content/PATH attestation are deferred.
+
 ## [0.0.22] - 2026-07-31
 
 ### Added
@@ -196,7 +202,7 @@ Wukong Code 0.0.14 makes it easier to continue unfinished work and understand wh
 - Make `/resume` show Wukong sessions only. Source-specific compatibility aliases remain available but stay out of the primary command list.
 - Replace ambiguous TUI footer text with a clear Gate result, primary blocker, and next action.
 - Keep `verify`, `scan`, and `proof` as advanced local diagnostics inside the Loop rather than separate products or quotas.
-- Keep the release free and bring-your-own-key. Payments and real Pro entitlements remain deferred to 0.1.0.
+- Keep the release free and bring-your-own-key. Payments and real Pro entitlements are not scheduled for 0.1.0; any later commercial version requires a separate decision.
 
 ### Removed
 - Remove the retired cloud report upload, hosted history, quota, and public sharing workflow from the product.
@@ -210,7 +216,7 @@ Wukong Code 0.0.13 improves the independent review step inside Loop without addi
 - Add an optional independent reviewer model for stronger separation between writing and reviewing.
 
 ### Changed
-- Keep the release free and bring-your-own-key; payment remains deferred to 0.1.0.
+- Keep the release free and bring-your-own-key; payment is not scheduled for 0.1.0 and requires a separate later decision.
 
 ## [0.0.12] - 2026-07-16
 
