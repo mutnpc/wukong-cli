@@ -160,6 +160,20 @@ version/platform fields. It excludes source code, diffs, prompts, objectives,
 transcripts, repository names, file paths, provider keys, and provider
 endpoints.
 
+The only product-event destination is
+`POST https://telemetry-logs.wukong.today/v1/event`. The wire envelope contains
+random installation/session/event IDs, event name and timestamp, CLI
+version, Node runtime, platform, architecture, UI mode, and controlled
+primitive lifecycle properties. The client centrally removes model aliases
+and hashes derived from tool arguments before transport.
+
+Failed sends may be stored as mode-`0600` files under
+`~/.wukong/telemetry/failed_*.jsonl`. When telemetry remains enabled, files
+older than seven days are deleted on a later startup; opting out clears this
+failed-event queue without changing local Loop behavior. A verifiable remote
+retention/deletion period is not currently defined in the public repository,
+so telemetry must not be used as 0.1.0 cohort or completion evidence.
+
 Disable anonymous product events with:
 
 ```bash
