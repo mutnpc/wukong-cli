@@ -1,11 +1,19 @@
 import { readFile } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+
+function readRepositoryFile(path) {
+  return readFile(resolve(repositoryRoot, path), 'utf-8');
+}
 
 const STABLE_VERSION_PATTERN = /^[0-9]+\.[0-9]+\.[0-9]+$/;
 const PRERELEASE_VERSION_PATTERN =
   /^[0-9]+\.[0-9]+\.[0-9]+-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*$/;
 
 const expectedVersionArg = process.argv[2];
-const changelog = await readFile('CHANGELOG.md', 'utf-8');
+const changelog = await readRepositoryFile('CHANGELOG.md');
 const stableMatch = changelog.match(/^## \[([0-9]+\.[0-9]+\.[0-9]+)\]/m);
 if (stableMatch === null) {
   throw new Error('Could not resolve the latest stable public version from CHANGELOG.md.');
@@ -74,7 +82,7 @@ async function validateStableChannel(versionToValidate) {
   ];
 
   for (const contract of contracts) {
-    const text = await readFile(contract.file, 'utf-8');
+    const text = await readRepositoryFile(contract.file);
     for (const marker of contract.markers) {
       if (!text.includes(marker)) {
         throw new Error(`${contract.file} is missing current-release marker: ${marker}`);
@@ -85,7 +93,7 @@ async function validateStableChannel(versionToValidate) {
 
 async function validatePrerelease(prereleaseVersion, stableVersion) {
   const releaseNotesPath = `docs/releases/${prereleaseVersion}.md`;
-  const releaseNotes = await readFile(releaseNotesPath, 'utf-8');
+  const releaseNotes = await readRepositoryFile(releaseNotesPath);
   const prereleaseMarkers = [
     `# Wukong Code ${prereleaseVersion}`,
     `releases/tag/v${prereleaseVersion}`,
