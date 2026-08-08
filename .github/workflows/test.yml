@@ -20,8 +20,8 @@ jobs:
       - name: Validate current release truth
         run: node scripts/validate-release-truth.mjs
 
-      - name: Test exact deployment marker contract
-        run: node --test tests/release-marker.test.mjs
+      - name: Test release and deployment contracts
+        run: node --test tests/*.test.mjs
 
       - name: Install bats
         run: sudo apt-get update && sudo apt-get install -y bats
