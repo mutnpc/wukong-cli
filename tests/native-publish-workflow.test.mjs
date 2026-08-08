@@ -11,6 +11,9 @@ test('public repository owns prerelease mutation and attestation with its epheme
   assert.doesNotMatch(source, /WUKONG_PUBLIC_RELEASE_TOKEN/u);
   assert.match(source, /actions\/attest-build-provenance@43d14bc/u);
   assert.match(source, /--draft=false --prerelease --latest=false/u);
+  assert.match(source, /immutable_policy_verified:/u);
+  assert.match(source, /test "\$IMMUTABLE_POLICY_VERIFIED" = "true"/u);
+  assert.doesNotMatch(source, /immutable-releases" --jq \.enabled/u);
   assert.match(source, /isImmutable --jq \.isImmutable\)" = "true"/u);
 });
 

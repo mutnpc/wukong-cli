@@ -23,6 +23,11 @@ on:
         description: Exact wukong_web commit recorded in provenance
         required: true
         type: string
+      immutable_policy_verified:
+        description: Operator confirmed immutable releases are enabled immediately before dispatch
+        required: true
+        type: boolean
+        default: false
 
 concurrency:
   group: publish-staged-native-prerelease
@@ -47,6 +52,7 @@ jobs:
       SOURCE_RUN: ${{ inputs.source_run }}
       DISTRIBUTION_SHA: ${{ inputs.distribution_sha }}
       WEBSITE_SHA: ${{ inputs.website_sha }}
+      IMMUTABLE_POLICY_VERIFIED: ${{ inputs.immutable_policy_verified }}
     steps:
       - name: Checkout exact public distribution commit
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
@@ -97,8 +103,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test "$(gh api -H 'X-GitHub-Api-Version: 2026-03-10' \
-            "repos/${GITHUB_REPOSITORY}/immutable-releases" --jq .enabled)" = "true"
+          # The ephemeral GITHUB_TOKEN intentionally has no Administration
+          # permission. The operator verifies the policy immediately before
+          # dispatch; publication must still prove the resulting release is
+          # actually immutable before any smoke evidence is accepted.
+          test "$IMMUTABLE_POLICY_VERIFIED" = "true"
           gh release edit "$RELEASE_TAG" --draft=false --prerelease --latest=false
           test "$(gh release view "$RELEASE_TAG" --json isDraft --jq .isDraft)" = "false"
           test "$(gh release view "$RELEASE_TAG" --json isPrerelease --jq .isPrerelease)" = "true"
