@@ -15,11 +15,16 @@ those notes do not mean that `0.1.0-rc.1` has shipped. Check `wukong --version`
 when an exact installed behavior matters.
 
 Version 0.1.0 is scoped to one controllable, recoverable, explainable local
-Loop. RC still requires enforceable provider-call/token limits, a trustworthy
-no-check decision, pre-existing-versus-Wukong file attribution, complete
-terminal usage/next actions, and upgrade/recovery proof. Full multi-layer
-coverage schema replacement, direct-shell content/PATH attestation, and a
-provider pricing database are deferred.
+Loop. The development source now implements enforceable provider-call/token
+limits, a versioned no-check decision, pre-existing-versus-Wukong file
+attribution, terminal usage/next actions, and automated compatibility/release
+smoke coverage, and those contracts pass local automation. The source identity
+is prepared as `0.1.0-rc.1`; that is not proof the public prerelease assets have
+passed. Six-platform candidate CI and public-asset verification, real-machine
+install/upgrade/recovery, first-user/cohort evidence, and the 14-day stability
+window remain incomplete. Full multi-layer coverage schema replacement,
+direct-shell content/PATH attestation, and a provider pricing database are
+deferred.
 
 ## Why Wukong
 
@@ -101,9 +106,11 @@ wukong loop "add input validation to the signup form" --dry-run
 Goal, Done when, Must not rules, exact checks, review criteria, Writer/Reviewer,
 sanitized provider origin, pre-existing Git changes, permission mode, outbound
 scope and payload limits, approval order, terminal handling, and iteration
-limit. It also states that no separate provider-call or token cap is currently
-enforced. Local read, provider transmission, permission, and project-check
-execution remain separate security approvals. Cancelling creates no run.
+limit, provider-call ceiling, and optional token budget. Local read, provider
+transmission, permission, and project-check execution remain separate security
+approvals. Cancelling creates no run or provider call. A versioned no-check
+decision can cover eligible documentation/configuration work; source changes
+without required checks fail closed as `NEEDS_WORK/checks_missing`.
 
 Resume local work from another coding agent:
 
@@ -130,10 +137,14 @@ Each Loop keeps one user-owned target:
 
 ### Development preview: result handling
 
-A Loop with no executable checks cannot return `PASS`. After `PASS`, inspect
-the diff and any non-blocking findings before delivery. TUI Ctrl-C or
-`/loop pause` is resumable `PAUSED`; `/loop stop` and a headless interruption
-are `STOPPED_BY_USER`, not Gate verdicts. If a result reports
+A terminal summary separates decisive evidence, pre-existing changes,
+Wukong-touched/added/deleted files, unknown attribution, checks,
+calls/tokens/retries/remaining budget, the primary blocker, and the safe Next
+action. A source change without required executable checks cannot return
+`PASS`; an eligible versioned no-check decision remains explicit and auditable.
+After `PASS`, inspect the diff and any non-blocking findings before delivery.
+TUI Ctrl-C or `/loop pause` is resumable `PAUSED`; `/loop stop` and a headless
+interruption are `STOPPED_BY_USER`, not Gate verdicts. If a result reports
 `provider_outcome_unknown`, reconcile its request ID/idempotency key with the
 provider logs or billing before any retry and never resume blindly.
 

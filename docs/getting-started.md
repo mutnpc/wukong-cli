@@ -16,10 +16,15 @@ marked **development preview** describe the unreleased source checkout and do
 not mean that `0.1.0-rc.1` is available.
 
 Version 0.1.0 is scoped to one controllable, recoverable, explainable local
-Loop. Before RC, the development path must add enforceable call/token limits,
-trustworthy no-check handling, file attribution, complete terminal usage/next
-actions, and upgrade/recovery proof. Full multi-layer coverage schemas and
-direct-shell content/PATH attestation are deferred.
+Loop. The development source now implements enforceable call/token limits, a
+versioned no-check decision, file attribution, terminal usage/next actions, and
+automated compatibility/release smoke coverage, and those contracts pass local
+automation. The source identity is prepared as `0.1.0-rc.1`, but public
+availability still requires the pinned prerelease assets and provenance to
+pass. Six-platform candidate CI and public-asset verification, real-machine
+install/upgrade/recovery, first-user/cohort evidence, and the 14-day stability
+window remain incomplete. Full multi-layer coverage schemas and direct-shell
+content/PATH attestation are deferred.
 
 ## Requirements
 
@@ -72,11 +77,8 @@ chmod +x wukong
 ./wukong --version
 ```
 
-Replace the target name for Intel macOS or Linux. The v0.0.22 macOS assets
-have published SHA-256 files but were not Developer ID notarized; macOS may
-show a Gatekeeper warning. Do not bypass it unless the checksum matches and
-you trust the linked GitHub Release. The release workflow for subsequent
-public versions fails closed unless Developer ID signing and notarization pass.
+Replace the target name for Intel macOS or Linux. The canonical installer above
+performs this SHA-256 verification automatically and stops on a mismatch.
 
 ### Upgrade
 
@@ -150,14 +152,13 @@ The primary user flow is **input → execution → evidence → disposition**:
    Must not rules, selected project checks and review criteria, Writer/Reviewer,
    sanitized provider origin, pre-existing Git paths, permission mode, outbound
    scope and payload limits, approval order, result handling, and iteration
-   limit. It explicitly says that no separate provider-call or token cap is
-   currently enforced. Headless dry-run prints the same runtime facts and exact
-   start flags. Local read, provider transmission, permission, and project-check
-   execution remain separate approvals. A generic warning acknowledgement is
-   not yet the final versioned no-check decision; both that decision and real
-   call/token enforcement remain RC work.
-   execution remain separate security approvals. Cancelling creates no run;
-   starting anyway with no executable checks does not make `PASS` possible.
+   limit, provider-call ceiling, and optional token budget. Headless dry-run
+   prints the same runtime facts and exact start flags. Local read, provider
+   transmission, permission, and project-check execution remain separate
+   security approvals. A versioned no-check decision can cover eligible
+   documentation/configuration work; source changes without required checks
+   fail closed as `NEEDS_WORK/checks_missing`. Cancelling creates no run or
+   provider call.
 2. **Execution:** watch writer iteration, elapsed time, the active tool/activity,
    and any permission, provider, or check blocker. TUI `WRITE`/`CHECK`/`REVIEW`
    labels are activity hints; headless currently reports writer iterations and
@@ -165,9 +166,10 @@ The primary user flow is **input → execution → evidence → disposition**:
    `REVIEW` phase. A model saying “done” is not completion.
 3. **Evidence:** the final decision is based on the current workspace, real
    check results, bounded risk findings, and a fresh read-only review. Earlier
-   session claims are context only. Usage, cost, provider-call count, reviewer
-   usage, and file attribution remain `unavailable` or `unknown` unless durable
-   records can prove them.
+   session claims are context only. Durable records report calls, tokens,
+   retries, remaining budget, reviewer usage, and pre-existing-versus-Wukong
+   file attribution. Unknown attribution stays explicit, and cost remains
+   `unavailable` when no reliable pricing source exists.
 4. **Disposition:** act on the single terminal result below. Do not interpret
    raw agent prose as the release decision.
 

@@ -13,10 +13,15 @@ Sections marked **development preview** describe unreleased stabilization in
 this source checkout. They are not evidence that `0.1.0-rc.1` has shipped.
 
 The 0.1.0 target keeps this command surface narrow and stabilizes one local
-Loop. Provider-call/token limits, trustworthy no-check handling, file
-attribution, terminal usage, and recovery must close before RC; full internal
-coverage-schema replacement and direct-shell content/PATH attestation are not
-user-facing release blockers.
+Loop. The development source implements provider-call/token limits, a versioned
+no-check decision, file attribution, terminal usage/next actions, and automated
+recovery coverage, with local automation passing. The source identity is
+prepared as `0.1.0-rc.1`, but public availability still requires the pinned
+prerelease assets and provenance to pass. Six-platform candidate CI and
+public-asset verification, real-machine
+install/upgrade/recovery, first-user/cohort evidence, and the 14-day stability
+window remain incomplete. Full internal coverage-schema replacement and
+direct-shell content/PATH attestation are not user-facing release blockers.
 
 {: .highlight }
 Run `wukong --help` or `wukong <command> --help` against your installed version
@@ -117,19 +122,19 @@ transmission on the user's behalf.
 | `--dry-run` | Print the complete Finish Line proposal without creating trust, contract, or run state |
 | `--until <condition>` | Compatibility option; all values map to the unified proof gate |
 
-The current Loop confirms and freezes the Finish Line, required checks, workspace
-identity, trust, Gate approval, selected verification criteria, broker scope,
-and exact BYOK review destination before the Loop starts. The development TUI
-first renders one summary containing those facts plus Writer/Reviewer,
-pre-existing Git paths, permission, outbound limits, approval order, result
-handling, iteration limit, and an explicit warning that provider-call/token
-caps are not separately enforced. Suggested criteria remain unselected until
-the user confirms their full provenance digests and order. Trusted project
-checks and generic Finish Line warnings do not yet implement the final
-versioned no-check decision; 0.1.0 RC must add that distinction and enforce the
-displayed provider-call/token limits.
-checks run with the current OS permissions; Skill criteria do not execute
-commands, and the static guard is not a complete shell sandbox.
+**Development preview:** the current Loop confirms and freezes the Finish Line,
+required checks or versioned no-check decision, workspace identity, trust, Gate
+approval, selected verification criteria, broker scope, and exact BYOK review
+destination before the Loop starts. The TUI first renders one editable summary
+containing those facts plus Writer/Reviewer, pre-existing Git paths, permission,
+outbound limits, approval order, result handling, iteration limit,
+provider-call ceiling, and optional token budget. Suggested criteria remain
+unselected until the user confirms their full provenance digests and order. A
+versioned no-check decision can cover eligible documentation/configuration
+work; source changes without required checks fail closed as
+`NEEDS_WORK/checks_missing`. Trusted project checks run with the current OS
+permissions; Skill criteria do not execute commands, and the static guard is
+not a complete shell sandbox.
 
 For a real headless run, review `wukong loop <goal> --dry-run` and add its exact
 **Headless start flags** to the same command. The required set is

@@ -43,3 +43,5 @@ exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
+include:
+  - _release.json

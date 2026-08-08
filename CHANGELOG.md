@@ -10,8 +10,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+The stable `0.1.0` release remains gated by public six-platform verification,
+real-machine/user evidence, and the full 14-day candidate window.
+
+## [0.1.0-rc.1] - 2026-08-08
+
+> Candidate distribution identity prepared. Availability is proven only when
+> the [pinned prerelease](https://github.com/mutnpc/wukong-code/releases/tag/v0.1.0-rc.1)
+> exposes all verified assets and provenance; stable `latest` remains `v0.0.22`.
+
 ### Added
-- Add one consolidated Loop Preflight summary for Goal, Done when, Must not rules, exact project checks, review criteria, Writer/Reviewer, sanitized provider origin, pre-existing Git changes, permission mode, outbound limits, approval order, terminal handling, and iteration limit.
+- Add one editable consolidated Loop Preflight summary for Goal, Done when, Must not rules, exact project checks or the versioned no-check decision, review criteria, Writer/Reviewer, sanitized provider origin, pre-existing Git changes, permission mode, outbound limits, approval order, terminal handling, iteration limit, provider-call ceiling, and optional token budget.
 - Add deterministic ordinary-prompt summaries that separate model completion from a durable Loop Gate verdict.
 - Add `wukong logout` and TUI `/logout`: attempt remote refresh-token revocation, always clean local account credentials when possible, and report remote revocation as unknown instead of falsely confirmed on network or server failure.
 
@@ -19,20 +28,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Keep TUI Ctrl-C and `/loop pause` as resumable `PAUSED`; reserve `STOPPED_BY_USER` for `/loop stop` or a headless interruption before a Gate verdict.
 - Refuse blind resume or retry when a provider request outcome cannot be proven; surface the request ID and idempotency key for reconciliation.
 - Keep workspace changes after every terminal result and direct the user to inspect `git status --short` and `git diff`; Wukong does not automatically commit, push, or publish.
+- Report decisive evidence, pre-existing changes, Wukong-touched/added/deleted files, unknown attribution, checks, calls/tokens/retries/remaining budget, the primary blocker, and the safe Next action from the same durable terminal result.
 
 ### Fixed
 - Make `wukong judge` block with `Verification: not run` when no executable verification command was discovered or supplied; a risk scan alone cannot produce a passing delivery decision.
-- Make release staging, metadata, checksum, signing, and notarization checks fail closed before a future public native release is published.
+- Require an explicit versioned no-check decision for eligible documentation/configuration work and return `NEEDS_WORK/checks_missing` when source changes omit required checks.
+- Enforce provider-call ceilings and optional token budgets at runtime; exhaustion returns an actionable `NEEDS_WORK` result instead of silently continuing.
+- Make release staging, exact source/catalog metadata, checksum, provenance, and the explicit absence of macOS Developer ID signing and notarization fail closed before a future public native release is published.
 
-These entries describe the unreleased source checkout. They are not evidence
-that `0.1.0-rc.1`, a new binary, or the corresponding Web security changes have
-been published.
+These entries describe the `0.1.0-rc.1` candidate source. They are not evidence
+that its public binary assets passed verification; use the pinned prerelease
+URL and provenance for that decision.
 
-The 0.1.0 RC scope is intentionally narrower than the full internal research
-backlog: enforceable call/token limits, no-check policy, file attribution,
-terminal usage/next actions, compatibility recovery, and minimum Gate
-completeness/freshness remain required. Full multi-layer coverage-schema
-replacement and direct-shell content/PATH attestation are deferred.
+The 0.1.0 development source now implements provider-call/token limits,
+versioned no-check policy, file attribution, terminal usage/next actions,
+compatibility recovery, and minimum Gate completeness/freshness, with local
+automated coverage passing. The source identity is prepared as `0.1.0-rc.1`,
+while six-platform candidate CI and public-asset verification, real-machine
+install/upgrade/recovery, first-user/cohort evidence, and the 14-day stability
+window remain incomplete.
+Full multi-layer coverage-schema replacement and direct-shell content/PATH
+attestation are deferred.
 
 ## [0.0.22] - 2026-07-31
 
