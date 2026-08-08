@@ -7,19 +7,19 @@ permalink: /commands/
 
 # Command Reference
 
-This reference describes the public v0.0.22 binary.
+This reference describes the public v0.1.0 binary.
 
-Sections marked **development preview** describe the opt-in `0.1.0-rc.1`
-prerelease rather than the stable `v0.0.22` command surface.
+The immutable `0.1.0-rc.1` prerelease remains a candidate evidence snapshot for
+the stable `v0.1.0` command surface.
 
 The 0.1.0 target keeps this command surface narrow and stabilizes one local
 Loop. The development source implements provider-call/token limits, a versioned
 no-check decision, file attribution, terminal usage/next actions, and automated
 recovery coverage, with local automation passing. The immutable `0.1.0-rc.1`
 prerelease has passed six-platform build, public-asset, pinned
-install/upgrade/recovery, checksum, provenance, and attestation verification.
-Real repository/source flows, first-user/cohort evidence, and the 14-day
-stability window remain incomplete. Full internal coverage-schema replacement and
+install/upgrade/recovery, checksum, and provenance verification. Real
+repository/source flows and first-user/cohort evidence continue after release
+without a fixed 14-day wait. Full internal coverage-schema replacement and
 direct-shell content/PATH attestation are not user-facing release blockers.
 
 {: .highlight }

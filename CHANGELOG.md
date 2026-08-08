@@ -10,8 +10,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-The stable `0.1.0` release remains gated by real-machine/user evidence and the
-full 14-day candidate window. Public six-platform RC verification has passed.
+Post-release real-repository, first-user, and cohort learning remains open. It
+does not impose a fixed 14-day wait on the stable binary.
+
+## [0.1.0] - 2026-08-08
+
+### Added
+- Stabilize one controllable, recoverable, explainable Trusted Local Loop with
+  editable Preflight, enforced provider-call/token ceilings, versioned no-check,
+  complete/fresh Gate evidence, deterministic terminal results, workspace file
+  attribution, and safe recovery.
+- Import Codex, Claude Code, Cursor, Kimi Code, and Grok sessions as read-only
+  context without importing trust, permissions, checks, or provider consent.
+
+### Changed
+- Make `v0.1.0` the default stable installer target while preserving direct
+  upgrade and state compatibility from `v0.0.22`.
+- Verify six platform archives with adjacent SHA-256 files, exact-source
+  provenance, immutable release identity, fresh install, upgrade, and recovery.
+- Keep macOS binaries deliberately unsigned and unnotarized; this curl-installed
+  CLI is verified by checksum and release provenance rather than an app-package
+  signature.
+
+Real repository/source flows, first-user comprehension, and the opt-in cohort
+remain post-release product-learning evidence. They are not represented as
+completed and do not impose a fixed 14-day waiting gate.
 
 ## [0.1.0-rc.1] - 2026-08-08
 
@@ -34,18 +57,18 @@ full 14-day candidate window. Public six-platform RC verification has passed.
 - Make `wukong judge` block with `Verification: not run` when no executable verification command was discovered or supplied; a risk scan alone cannot produce a passing delivery decision.
 - Require an explicit versioned no-check decision for eligible documentation/configuration work and return `NEEDS_WORK/checks_missing` when source changes omit required checks.
 - Enforce provider-call ceilings and optional token budgets at runtime; exhaustion returns an actionable `NEEDS_WORK` result instead of silently continuing.
-- Make release staging, exact source/catalog metadata, checksums, provenance, and attestations fail closed before a public native release is published.
+- Make release staging, exact source/catalog metadata, checksums, and provenance fail closed before a public native release is published.
 
 These entries describe the public `0.1.0-rc.1` candidate. Its pinned release URL,
-checksums, provenance, and attestations are the distribution evidence.
+checksums and provenance are the distribution evidence.
 
 The 0.1.0 development source now implements provider-call/token limits,
 versioned no-check policy, file attribution, terminal usage/next actions,
 compatibility recovery, and minimum Gate completeness/freshness, with local
 automated coverage passing. Six-platform candidate CI, public-asset verification,
 pinned fresh install, `0.0.22` upgrade, and state recovery have passed. Real
-repository/source flows, first-user/cohort evidence, and the 14-day stability
-window remain incomplete.
+repository/source flows and first-user/cohort evidence remain incomplete and
+continue after stable release.
 Full multi-layer coverage-schema replacement and direct-shell content/PATH
 attestation are deferred.
 

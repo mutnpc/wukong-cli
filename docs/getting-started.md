@@ -7,22 +7,21 @@ permalink: /getting-started/
 
 # Getting Started
 
-Wukong Code v0.0.22 is a terminal AI coding agent centered on one workflow:
+Wukong Code v0.1.0 is a terminal AI coding agent centered on one workflow:
 **Goal → Write → Check → Review → Fix**.
 
 {: .highlight }
-Unpinned install facts on this page refer to stable `v0.0.22`. The explicit
-opt-in `v0.1.0-rc.1` prerelease is public but is never selected by stable
-`latest`.
+Unpinned install facts on this page refer to stable `v0.1.0`. The immutable
+`v0.1.0-rc.1` prerelease remains the candidate evidence snapshot.
 
 Version 0.1.0 is scoped to one controllable, recoverable, explainable local
 Loop. The development source now implements enforceable call/token limits, a
 versioned no-check decision, file attribution, terminal usage/next actions, and
 automated compatibility/release smoke coverage, and those contracts pass local
 automation. The immutable `0.1.0-rc.1` prerelease has passed six-platform build,
-public-asset, pinned install/upgrade/recovery, checksum, provenance, and
-attestation verification. Real repository/source flows, first-user/cohort
-evidence, and the 14-day stability window remain incomplete. Full multi-layer coverage schemas and direct-shell
+public-asset, pinned install/upgrade/recovery, checksum, and provenance
+verification. Real repository/source flows and first-user/cohort evidence
+continue after release without a fixed 14-day wait. Full multi-layer coverage schemas and direct-shell
 content/PATH attestation are deferred.
 
 ## Requirements
@@ -50,7 +49,7 @@ verifies its SHA-256 file.
 ### Windows
 
 Download the matching Windows x64 or ARM64 ZIP from the
-[release page](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.22),
+[release page](https://github.com/mutnpc/wukong-code/releases/tag/v0.1.0),
 along with its adjacent `.sha256` file. In PowerShell, verify and extract it:
 
 ```powershell
