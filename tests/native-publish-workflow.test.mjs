@@ -25,6 +25,8 @@ test('publication is gated by exact draft bytes and followed by six-platform ano
   assert.ok(publishIndex > attestIndex);
   assert.ok(anonymousIndex > publishIndex);
   assert.match(source, /validate-native-release-assets\.mjs/u);
+  assert.match(source, /--json targetCommitish --jq \.targetCommitish/u);
+  assert.doesNotMatch(source, /commits\/\$\{RELEASE_TAG\}/u);
   assert.equal((source.match(/target: (?:linux|darwin|win32)-/gu) ?? []).length, 6);
   assert.match(source, /WUKONG_VERSION="\$RELEASE_TAG"/u);
   assert.match(source, /WUKONG_VERSION=v0\.0\.22/u);

@@ -72,7 +72,9 @@ jobs:
           test "$GITHUB_SHA" = "$DISTRIBUTION_SHA"
           VERSION="${RELEASE_TAG#v}"
           node scripts/validate-release-truth.mjs "$VERSION"
-          test "$(gh api "repos/${GITHUB_REPOSITORY}/commits/${RELEASE_TAG}" --jq .sha)" = "$DISTRIBUTION_SHA"
+          # GitHub does not create the tag ref until a draft is published.
+          # targetCommitish is therefore the authoritative draft identity.
+          test "$(gh release view "$RELEASE_TAG" --json targetCommitish --jq .targetCommitish)" = "$DISTRIBUTION_SHA"
           test "$(gh release view "$RELEASE_TAG" --json isDraft --jq .isDraft)" = "true"
           test "$(gh release view "$RELEASE_TAG" --json isPrerelease --jq .isPrerelease)" = "true"
           test "$(gh release view "$RELEASE_TAG" --json assets --jq '.assets | length')" = "13"
