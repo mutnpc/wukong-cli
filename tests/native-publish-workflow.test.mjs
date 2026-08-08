@@ -35,4 +35,15 @@ test('publication is gated by exact draft bytes and followed by six-platform ano
   assert.match(source, /WUKONG_VERSION=v0\.0\.22/u);
   assert.match(source, /Replacement changed existing config/u);
   assert.match(source, /Preserve stable latest after public smoke/u);
+  assert.match(source, /gh release view --repo "\$GITHUB_REPOSITORY"/u);
+});
+
+test('published verification re-downloads all assets and binds attestations to the release commit', async () => {
+  const source = await readFile('.github/workflows/verify-native-prerelease.yml', 'utf8');
+  assert.match(source, /Verify immutable identity, attestations, assets, and stable latest/u);
+  assert.match(source, /validate-native-release-assets\.mjs/u);
+  assert.match(source, /gh attestation verify/u);
+  assert.match(source, /--source-digest "\$DISTRIBUTION_SHA"/u);
+  assert.match(source, /gh release view --repo "\$GITHUB_REPOSITORY"/u);
+  assert.match(source, /"13"/u);
 });
