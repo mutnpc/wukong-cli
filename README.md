@@ -9,20 +9,20 @@ The current release is
 **[v0.0.22](https://github.com/mutnpc/wukong-code/releases/tag/v0.0.22)**.
 It is free and bring-your-own-key (BYOK).
 
-The release and install sections below describe that published binary. This
-documentation checkout may also stage unreleased `0.1.0` stabilization notes;
-those notes do not mean that `0.1.0-rc.1` has shipped. Check `wukong --version`
-when an exact installed behavior matters.
+The default install sections below describe that stable binary.
+[`v0.1.0-rc.1`](https://github.com/mutnpc/wukong-code/releases/tag/v0.1.0-rc.1)
+is also available as an explicit opt-in prerelease; stable `latest` remains
+`v0.0.22`. Check `wukong --version` when exact installed behavior matters.
 
 Version 0.1.0 is scoped to one controllable, recoverable, explainable local
 Loop. The development source now implements enforceable provider-call/token
 limits, a versioned no-check decision, pre-existing-versus-Wukong file
 attribution, terminal usage/next actions, and automated compatibility/release
-smoke coverage, and those contracts pass local automation. The source identity
-is prepared as `0.1.0-rc.1`; that is not proof the public prerelease assets have
-passed. Six-platform candidate CI and public-asset verification, real-machine
-install/upgrade/recovery, first-user/cohort evidence, and the 14-day stability
-window remain incomplete. Full multi-layer coverage schema replacement,
+smoke coverage, and those contracts pass local automation. The immutable
+`0.1.0-rc.1` prerelease has passed six-platform build, public-asset,
+checksum/provenance/attestation, pinned fresh-install, `0.0.22` upgrade, and
+state-recovery verification. Real repository/source flows, first-user/cohort
+evidence, and the 14-day stability window remain incomplete. Full multi-layer coverage schema replacement,
 direct-shell content/PATH attestation, and a provider pricing database are
 deferred.
 

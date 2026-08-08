@@ -11,19 +11,18 @@ Wukong Code v0.0.22 is a terminal AI coding agent centered on one workflow:
 **Goal → Write → Check → Review → Fix**.
 
 {: .highlight }
-Install and release facts on this page refer to published `v0.0.22`. Sections
-marked **development preview** describe the unreleased source checkout and do
-not mean that `0.1.0-rc.1` is available.
+Unpinned install facts on this page refer to stable `v0.0.22`. The explicit
+opt-in `v0.1.0-rc.1` prerelease is public but is never selected by stable
+`latest`.
 
 Version 0.1.0 is scoped to one controllable, recoverable, explainable local
 Loop. The development source now implements enforceable call/token limits, a
 versioned no-check decision, file attribution, terminal usage/next actions, and
 automated compatibility/release smoke coverage, and those contracts pass local
-automation. The source identity is prepared as `0.1.0-rc.1`, but public
-availability still requires the pinned prerelease assets and provenance to
-pass. Six-platform candidate CI and public-asset verification, real-machine
-install/upgrade/recovery, first-user/cohort evidence, and the 14-day stability
-window remain incomplete. Full multi-layer coverage schemas and direct-shell
+automation. The immutable `0.1.0-rc.1` prerelease has passed six-platform build,
+public-asset, pinned install/upgrade/recovery, checksum, provenance, and
+attestation verification. Real repository/source flows, first-user/cohort
+evidence, and the 14-day stability window remain incomplete. Full multi-layer coverage schemas and direct-shell
 content/PATH attestation are deferred.
 
 ## Requirements

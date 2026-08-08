@@ -10,14 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-The stable `0.1.0` release remains gated by public six-platform verification,
-real-machine/user evidence, and the full 14-day candidate window.
+The stable `0.1.0` release remains gated by real-machine/user evidence and the
+full 14-day candidate window. Public six-platform RC verification has passed.
 
 ## [0.1.0-rc.1] - 2026-08-08
 
-> Candidate distribution identity prepared. Availability is proven only when
-> the [pinned prerelease](https://github.com/mutnpc/wukong-code/releases/tag/v0.1.0-rc.1)
-> exposes all verified assets and provenance; stable `latest` remains `v0.0.22`.
+> The [pinned prerelease](https://github.com/mutnpc/wukong-code/releases/tag/v0.1.0-rc.1)
+> is public with all 13 verified assets and provenance. It is immutable;
+> stable `latest` remains `v0.0.22`.
 
 ### Added
 - Add one editable consolidated Loop Preflight summary for Goal, Done when, Must not rules, exact project checks or the versioned no-check decision, review criteria, Writer/Reviewer, sanitized provider origin, pre-existing Git changes, permission mode, outbound limits, approval order, terminal handling, iteration limit, provider-call ceiling, and optional token budget.
@@ -34,18 +34,17 @@ real-machine/user evidence, and the full 14-day candidate window.
 - Make `wukong judge` block with `Verification: not run` when no executable verification command was discovered or supplied; a risk scan alone cannot produce a passing delivery decision.
 - Require an explicit versioned no-check decision for eligible documentation/configuration work and return `NEEDS_WORK/checks_missing` when source changes omit required checks.
 - Enforce provider-call ceilings and optional token budgets at runtime; exhaustion returns an actionable `NEEDS_WORK` result instead of silently continuing.
-- Make release staging, exact source/catalog metadata, checksum, provenance, and the explicit absence of macOS Developer ID signing and notarization fail closed before a future public native release is published.
+- Make release staging, exact source/catalog metadata, checksums, provenance, and attestations fail closed before a public native release is published.
 
-These entries describe the `0.1.0-rc.1` candidate source. They are not evidence
-that its public binary assets passed verification; use the pinned prerelease
-URL and provenance for that decision.
+These entries describe the public `0.1.0-rc.1` candidate. Its pinned release URL,
+checksums, provenance, and attestations are the distribution evidence.
 
 The 0.1.0 development source now implements provider-call/token limits,
 versioned no-check policy, file attribution, terminal usage/next actions,
 compatibility recovery, and minimum Gate completeness/freshness, with local
-automated coverage passing. The source identity is prepared as `0.1.0-rc.1`,
-while six-platform candidate CI and public-asset verification, real-machine
-install/upgrade/recovery, first-user/cohort evidence, and the 14-day stability
+automated coverage passing. Six-platform candidate CI, public-asset verification,
+pinned fresh install, `0.0.22` upgrade, and state recovery have passed. Real
+repository/source flows, first-user/cohort evidence, and the 14-day stability
 window remain incomplete.
 Full multi-layer coverage-schema replacement and direct-shell content/PATH
 attestation are deferred.

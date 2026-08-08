@@ -9,18 +9,17 @@ permalink: /commands/
 
 This reference describes the public v0.0.22 binary.
 
-Sections marked **development preview** describe unreleased stabilization in
-this source checkout. They are not evidence that `0.1.0-rc.1` has shipped.
+Sections marked **development preview** describe the opt-in `0.1.0-rc.1`
+prerelease rather than the stable `v0.0.22` command surface.
 
 The 0.1.0 target keeps this command surface narrow and stabilizes one local
 Loop. The development source implements provider-call/token limits, a versioned
 no-check decision, file attribution, terminal usage/next actions, and automated
-recovery coverage, with local automation passing. The source identity is
-prepared as `0.1.0-rc.1`, but public availability still requires the pinned
-prerelease assets and provenance to pass. Six-platform candidate CI and
-public-asset verification, real-machine
-install/upgrade/recovery, first-user/cohort evidence, and the 14-day stability
-window remain incomplete. Full internal coverage-schema replacement and
+recovery coverage, with local automation passing. The immutable `0.1.0-rc.1`
+prerelease has passed six-platform build, public-asset, pinned
+install/upgrade/recovery, checksum, provenance, and attestation verification.
+Real repository/source flows, first-user/cohort evidence, and the 14-day
+stability window remain incomplete. Full internal coverage-schema replacement and
 direct-shell content/PATH attestation are not user-facing release blockers.
 
 {: .highlight }
