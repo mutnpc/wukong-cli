@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Updates and announcements
+description: How Wukong Code v0.1.0 checks for updates, upgrades native or package-manager installs, and displays non-blocking TUI announcements.
 nav_order: 5
 permalink: /updates-and-announcements/
 ---
@@ -11,7 +12,7 @@ Software updates and TUI announcements are separate channels. An announcement
 never installs software, and the update channel does not depend on an
 announcement.
 
-This page documents the published `v0.0.22` channels. The runtime contains
+This page documents the published `v0.1.0` channels. The runtime contains
 install-source detection for additional layouts; detection alone does not make
 an official distribution channel available.
 

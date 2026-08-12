@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Commands
+description: Wukong Code v0.1.0 CLI and TUI reference for Loop, Preflight, Resume, providers, permissions, checks, and deterministic Gate outcomes.
 nav_order: 3
 permalink: /commands/
 ---

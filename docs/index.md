@@ -1,6 +1,7 @@
 ---
 layout: default
-title: Home
+title: Wukong Code Documentation
+description: Install and use Wukong Code v0.1.0, a local BYOK AI coding loop with real repository checks, fresh review, and deterministic Gate outcomes.
 nav_order: 1
 permalink: /
 ---

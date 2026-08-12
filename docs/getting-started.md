@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Getting Started
+description: Install Wukong Code v0.1.0, configure a BYOK provider, preview a Loop, and run an evidence-backed Gate on macOS, Linux, or Windows.
 nav_order: 2
 permalink: /getting-started/
 ---
