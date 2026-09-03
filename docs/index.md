@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Wukong Code Documentation
-description: Install and use Wukong Code v0.1.0, a local BYOK AI coding loop with real repository checks, fresh review, and deterministic Gate outcomes.
+description: Install and use Wukong Code v0.1.1, a local BYOK AI coding loop with hardened updates, plugins, recovery, and repository checks.
 nav_order: 1
 permalink: /
 ---
@@ -12,9 +12,9 @@ permalink: /
 Wukong Code is a terminal AI coding agent built around one workflow:
 **Goal → Write → Check → Review → Fix**.
 
-[Install v0.1.0](#install){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[Install v0.1.1](#install){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 [Download Wukong Code](https://wukong.today/download){: .btn .fs-5 .mb-4 .mb-md-0 .mr-2 }
-[View the release](https://github.com/mutnpc/wukong-code/releases/tag/v0.1.0){: .btn .fs-5 .mb-4 .mb-md-0 }
+[View the release](https://github.com/mutnpc/wukong-code/releases/tag/v0.1.1){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 ---
 
@@ -25,7 +25,7 @@ Wukong Code is a terminal AI coding agent built around one workflow:
 > checks, reviews from a fresh read-only context, and fixes blocking findings.
 
 {: .note }
-> **Stop instead of drift** — v0.1.0 keeps the goal fixed, remembers earlier
+> **Stop instead of drift** — v0.1.1 keeps the goal fixed, remembers earlier
 > blockers, and stops with a clear reason when another iteration would repeat
 > the same work.
 
@@ -53,7 +53,7 @@ wukong --version
 ```
 
 Windows users can download the matching x64 or ARM64 ZIP from the
-[release page](https://github.com/mutnpc/wukong-code/releases/tag/v0.1.0).
+[release page](https://github.com/mutnpc/wukong-code/releases/tag/v0.1.1).
 Download the adjacent `.sha256` file too, then follow the exact verification,
 extraction, and `PATH` steps in [Getting Started](/getting-started/#windows).
 
@@ -84,7 +84,7 @@ before a Gate verdict is reported separately as `STOPPED_BY_USER`. Start with th
 
 ## Current product boundary
 
-The v0.1.0 release keeps local Loops free and bring-your-own-key, without
+The v0.1.1 release keeps local Loops free and bring-your-own-key, without
 a Guest trial, sign-in requirement, or monthly account limit. The default
 per-run safety limit is 10 iterations and can be changed explicitly. There is
 no public paid plan, Checkout, hosted report workflow, hosted inference, or managed model credit.

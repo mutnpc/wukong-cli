@@ -13,6 +13,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Post-release real-repository, first-user, and cohort learning remains open. It
 does not impose a fixed 14-day wait on the stable binary.
 
+## [0.1.1] - 2026-09-03
+
+### Changed
+- Preserve Loop revisions, new-run usage accounting, atomic provider imports,
+  and workspace boundaries when resuming external sessions.
+- Make automatic updates notification-only until the user explicitly runs
+  `wukong upgrade`.
+- Discover project checks only from real root or workspace-member declarations
+  and retain explainable source provenance.
+- Improve local Web reconnects, permission controls, keyboard navigation,
+  workspace persistence, dialogs, and side chats.
+
+### Security
+- Require HTTPS for plugin downloads and final redirects, enforce download and
+  extraction limits, support SHA-256 verification, install disabled first, and
+  roll back atomically on failure.
+- Fail closed when update configuration or source integrity is missing or
+  invalid instead of installing in the background.
+
+Wukong Code 0.1.1 remains free, local-first, and BYOK. It adds no paid plan,
+hosted inference, managed model credit, or new top-level command.
+
 ## [0.1.0] - 2026-08-08
 
 ### Added

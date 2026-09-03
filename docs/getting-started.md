@@ -1,29 +1,24 @@
 ---
 layout: default
 title: Getting Started
-description: Install Wukong Code v0.1.0, configure a BYOK provider, preview a Loop, and run an evidence-backed Gate on macOS, Linux, or Windows.
+description: Install Wukong Code v0.1.1, configure a BYOK provider, preview a Loop, and run an evidence-backed Gate on macOS, Linux, or Windows.
 nav_order: 2
 permalink: /getting-started/
 ---
 
 # Getting Started
 
-Wukong Code v0.1.0 is a terminal AI coding agent centered on one workflow:
+Wukong Code v0.1.1 is a terminal AI coding agent centered on one workflow:
 **Goal → Write → Check → Review → Fix**.
 
 {: .highlight }
-Unpinned install facts on this page refer to stable `v0.1.0`. The immutable
+Unpinned install facts on this page refer to stable `v0.1.1`. The immutable
 `v0.1.0-rc.1` prerelease remains the candidate evidence snapshot.
 
-Version 0.1.0 is scoped to one controllable, recoverable, explainable local
-Loop. The development source now implements enforceable call/token limits, a
-versioned no-check decision, file attribution, terminal usage/next actions, and
-automated compatibility/release smoke coverage, and those contracts pass local
-automation. The immutable `0.1.0-rc.1` prerelease has passed six-platform build,
-public-asset, pinned install/upgrade/recovery, checksum, and provenance
-verification. Real repository/source flows and first-user/cohort evidence
-continue after release without a fixed 14-day wait. Full multi-layer coverage schemas and direct-shell
-content/PATH attestation are deferred.
+Version 0.1.1 keeps the same local BYOK Loop and strengthens session recovery,
+provider configuration, explicit updates, plugin installation, workspace check
+discovery, and local Web interaction. Full multi-layer coverage schemas and
+direct-shell content/PATH attestation are deferred.
 
 ## Requirements
 
@@ -50,7 +45,7 @@ verifies its SHA-256 file.
 ### Windows
 
 Download the matching Windows x64 or ARM64 ZIP from the
-[release page](https://github.com/mutnpc/wukong-code/releases/tag/v0.1.0),
+[release page](https://github.com/mutnpc/wukong-code/releases/tag/v0.1.1),
 along with its adjacent `.sha256` file. In PowerShell, verify and extract it:
 
 ```powershell

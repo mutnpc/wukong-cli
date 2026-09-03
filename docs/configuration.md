@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Configuration
-description: Configure Wukong Code v0.1.0 providers, models, permissions, local state, Resume sources, upgrades, and privacy boundaries.
+description: Configure Wukong Code v0.1.1 providers, models, permissions, local state, Resume sources, upgrades, and privacy boundaries.
 nav_order: 4
 permalink: /configuration/
 ---

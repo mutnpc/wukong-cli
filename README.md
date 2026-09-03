@@ -6,7 +6,7 @@ Wukong Code is a terminal AI coding agent built around one workflow:
 **Goal → Write → Check → Review → Fix**.
 
 The current release is
-**[v0.1.0](https://github.com/mutnpc/wukong-code/releases/tag/v0.1.0)**.
+**[v0.1.1](https://github.com/mutnpc/wukong-code/releases/tag/v0.1.1)**.
 It is free and bring-your-own-key (BYOK).
 
 The default install sections below describe that stable binary. The immutable
@@ -14,15 +14,10 @@ The default install sections below describe that stable binary. The immutable
 prerelease remains available as the candidate evidence snapshot. Check
 `wukong --version` when exact installed behavior matters.
 
-Version 0.1.0 is scoped to one controllable, recoverable, explainable local
-Loop. The development source now implements enforceable provider-call/token
-limits, a versioned no-check decision, pre-existing-versus-Wukong file
-attribution, terminal usage/next actions, and automated compatibility/release
-smoke coverage, and those contracts pass local automation. The immutable
-`0.1.0-rc.1` prerelease has passed six-platform build, public-asset,
-checksum/provenance, pinned fresh-install, `0.0.22` upgrade, and state-recovery
-verification. Real repository/source flows and first-user/cohort evidence
-continue after release without a fixed 14-day wait. Full multi-layer coverage schema replacement,
+Version 0.1.1 keeps one controllable, recoverable, explainable local Loop and
+hardens session recovery, provider imports, explicit updates, plugin
+installation, workspace check discovery, and local Web interaction. It remains
+free, local-first, and BYOK. Full multi-layer coverage schema replacement,
 direct-shell content/PATH attestation, and a provider pricing database are
 deferred.
 
@@ -41,18 +36,20 @@ deferred.
   are `STOPPED_BY_USER`.
 - **Use your model provider** — configure the API key and model you want.
 
-## What's new in v0.1.0
+## What's new in v0.1.1
 
-Version `0.1.0` stabilizes the Trusted Local Loop while retaining the provider
-catalog fallback and CLI controls from `0.0.22`:
+Version `0.1.1` is a reliability and trust-boundary patch for the Trusted Local
+Loop while retaining the command surface and local BYOK product boundary of
+`0.1.0`:
 
-- provider discovery falls back from the maintained catalog to models.dev;
-- the source contains an offline snapshot path, but the official v0.0.22 native
-  archives omitted it because of a release-profile defect; see the release
-  notes before relying on fully offline provider discovery;
-- `-r, --resume` is the canonical CLI session-resume option;
-- help distinguishes guarded Auto, YOLO, Plan, headless `--yes`, and added
-  workspace access.
+- Loop revisions retain the existing Finish Line and runtime limits;
+- resumed usage is scoped to the new run, provider imports are atomic, and
+  cross-workspace session imports fail safely;
+- updates require explicit `wukong upgrade`; invalid configuration fails closed;
+- plugin downloads require HTTPS, bounded archives, optional SHA-256
+  verification, disabled-first installation, and atomic rollback;
+- project checks come only from real root or workspace-member declarations with
+  explainable provenance.
 
 ## Install
 
@@ -65,7 +62,7 @@ curl -fsSL https://wukong.today/install.sh | sh
 ### Windows
 
 Download the matching Windows ZIP from the
-[v0.1.0 release](https://github.com/mutnpc/wukong-code/releases/tag/v0.1.0),
+[v0.1.1 release](https://github.com/mutnpc/wukong-code/releases/tag/v0.1.1),
 extract `wukong.exe`, and add it to your `PATH`.
 
 Verify the installation:
